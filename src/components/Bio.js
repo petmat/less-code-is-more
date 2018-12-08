@@ -4,8 +4,10 @@ import React from 'react'
 import 'typeface-montserrat'
 import 'typeface-merriweather'
 
-import profilePic from './profile-pic2.png'
+import profilePic from './profile-pic.png'
 import { rhythm } from '../utils/typography'
+
+import { FaTwitter } from 'react-icons/fa'
 
 class Bio extends React.Component {
   render() {
@@ -30,7 +32,7 @@ class Bio extends React.Component {
           Written by <strong>Matti Petrelius</strong> who is a fan of serverless
           and other cool things.{' '}
           <a href="https://twitter.com/mattipet">
-            You should follow him on Twitter
+            <FaTwitter /> You should follow him on Twitter
           </a>
         </p>
       </div>
