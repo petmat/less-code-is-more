@@ -8,7 +8,7 @@ import { rhythm } from '../utils/typography'
 
 class BlogIndex extends React.Component {
   render() {
-    const { data } = this.props;
+    const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
     const posts = data.allMarkdownRemark.edges
@@ -30,7 +30,14 @@ class BlogIndex extends React.Component {
                   marginBottom: rhythm(1 / 4),
                 }}
               >
-                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
+                <Link
+                  style={{
+                    backgroundImage: 'none',
+                    textShadow: 'none',
+                    color: '#8BADC1',
+                  }}
+                  to={node.fields.slug}
+                >
                   {title}
                 </Link>
               </h3>

@@ -7,7 +7,7 @@ import 'typeface-merriweather'
 import profilePic from './profile-pic.png'
 import { rhythm } from '../utils/typography'
 
-import { FaTwitter } from 'react-icons/fa'
+import { GithubLink, TwitterLink } from './SomeLink'
 
 class Bio extends React.Component {
   render() {
@@ -30,10 +30,9 @@ class Bio extends React.Component {
         />
         <p>
           Written by <strong>Matti Petrelius</strong> who is a fan of serverless
-          and other cool things.{' '}
-          <a href="https://twitter.com/mattipet">
-            <FaTwitter /> You should follow him on Twitter
-          </a>
+          and other cool things. <span>Follow: </span>{' '}
+          <TwitterLink href="https://twitter.com/mattipet" />{' '}
+          <GithubLink href="https://github.com/petmat" />
         </p>
       </div>
     )

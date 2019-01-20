@@ -1,7 +1,14 @@
 import React from 'react'
 import { Link } from 'gatsby'
-
 import { rhythm, scale } from '../utils/typography'
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: #011627;
+    color: #d6deeb;
+  }
+`
 
 class Layout extends React.Component {
   render() {
@@ -20,9 +27,10 @@ class Layout extends React.Component {
         >
           <Link
             style={{
-              boxShadow: 'none',
+              backgroundImage: 'none',
               textDecoration: 'none',
               color: 'inherit',
+              textShadow: 'none',
             }}
             to={'/'}
           >
@@ -41,7 +49,7 @@ class Layout extends React.Component {
         >
           <Link
             style={{
-              boxShadow: 'none',
+              backgroundImage: 'none',
               textDecoration: 'none',
               color: 'inherit',
             }}
@@ -61,6 +69,7 @@ class Layout extends React.Component {
           padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
         }}
       >
+        <GlobalStyle />
         {header}
         {children}
       </div>
