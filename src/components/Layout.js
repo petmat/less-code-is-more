@@ -2,11 +2,12 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { rhythm, scale } from '../utils/typography'
 import { createGlobalStyle } from 'styled-components'
+import logoPic from './less-code-is-more.png'
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: #011627;
-    color: #d6deeb;
+    background-color: #180531;
+    color: #f0f0f0;
   }
 `
 
@@ -18,25 +19,23 @@ class Layout extends React.Component {
 
     if (location.pathname === rootPath) {
       header = (
-        <h1
+        <Link
           style={{
-            ...scale(1.5),
-            marginBottom: rhythm(1.5),
-            marginTop: 0,
+            backgroundImage: 'none',
+            textDecoration: 'none',
+            color: 'inherit',
+            textShadow: 'none',
           }}
+          to={'/'}
         >
-          <Link
+          <img
+            src={logoPic}
             style={{
-              backgroundImage: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-              textShadow: 'none',
+              marginBottom: rhythm(1.5),
+              marginTop: 0,
             }}
-            to={'/'}
-          >
-            {title}
-          </Link>
-        </h1>
+          />
+        </Link>
       )
     } else {
       header = (

@@ -33,7 +33,7 @@ module.exports = {
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
-          'gatsby-plugin-styled-components'
+          'gatsby-plugin-styled-components',
         ],
       },
     },
@@ -49,11 +49,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Less Code Is More`,
+        short_name: `LCIM`,
         start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
+        background_color: `#180531`,
+        theme_color: `#FE00FB`,
         display: `minimal-ui`,
         icon: `src/assets/gatsby-icon.png`,
       },

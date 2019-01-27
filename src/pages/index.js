@@ -5,6 +5,7 @@ import Helmet from 'react-helmet'
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import { rhythm } from '../utils/typography'
+import PostLink from '../components/PostLink'
 
 class BlogIndex extends React.Component {
   render() {
@@ -30,16 +31,7 @@ class BlogIndex extends React.Component {
                   marginBottom: rhythm(1 / 4),
                 }}
               >
-                <Link
-                  style={{
-                    backgroundImage: 'none',
-                    textShadow: 'none',
-                    color: '#8BADC1',
-                  }}
-                  to={node.fields.slug}
-                >
-                  {title}
-                </Link>
+                <PostLink slug={node.fields.slug} title={title} />
               </h3>
               <small>{node.frontmatter.date}</small>
               <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />

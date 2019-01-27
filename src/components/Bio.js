@@ -4,10 +4,17 @@ import React from 'react'
 import 'typeface-montserrat'
 import 'typeface-merriweather'
 
-import profilePic from './profile-pic.png'
+import profilePic from './profile-pic2.png'
 import { rhythm } from '../utils/typography'
+import styled from 'styled-components'
 
+import { titleColor } from '../utils/commonStyles'
 import { GithubLink, TwitterLink } from './SomeLink'
+
+const NameText = styled.strong`
+  font-family: 'Knewave';
+  color: ${titleColor};
+`
 
 class Bio extends React.Component {
   render() {
@@ -29,8 +36,8 @@ class Bio extends React.Component {
           }}
         />
         <p>
-          Written by <strong>Matti Petrelius</strong> who is a fan of serverless
-          and other cool things. <span>Follow: </span>{' '}
+          Written by <NameText>Matti Petrelius</NameText> who is a fan of
+          serverless and other cool things.
           <TwitterLink href="https://twitter.com/mattipet" />{' '}
           <GithubLink href="https://github.com/petmat" />
         </p>
