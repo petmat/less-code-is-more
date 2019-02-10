@@ -11,7 +11,7 @@ import styled from 'styled-components'
 import { titleColor } from '../utils/commonStyles'
 import { GithubLink, TwitterLink } from './SomeLink'
 
-const NameText = styled.strong`
+const NameText = styled.span`
   font-family: 'Knewave';
   color: ${titleColor};
 `

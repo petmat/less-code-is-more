@@ -9,6 +9,9 @@ const GlobalStyle = createGlobalStyle`
     background-color: #180531;
     color: #f0f0f0;
   }
+  h1, h2, h3 {
+    font-weight: normal;
+  }
 `
 
 class Layout extends React.Component {
