@@ -33,7 +33,7 @@ class BlogIndex extends React.Component {
               >
                 <PostLink slug={node.fields.slug} title={title} />
               </h3>
-              <small>{node.frontmatter.date}</small>
+              <small style={{ opacity: 0.6 }}>{node.frontmatter.date}</small>
               <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
             </div>
           )
