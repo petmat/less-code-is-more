@@ -4,7 +4,7 @@ import React from 'react'
 import 'typeface-montserrat'
 import 'typeface-merriweather'
 
-import profilePic from './profile-pic2.png'
+import profilePic from './matti-pic.png'
 import { rhythm } from '../utils/typography'
 import styled from 'styled-components'
 
