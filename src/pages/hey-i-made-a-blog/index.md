@@ -1,6 +1,6 @@
 ---
 title: Hey, I made a blog! (finally)
-date: '2019-04-20T22:12:03.284Z'
+date: '2019-04-24T22:12:03.284Z'
 ---
 
 This blog has been in the making for several years. It's a good thing though it lasted that long since I now feel like I have something actually interesting to write about.
@@ -11,17 +11,17 @@ During my over 10 years in the industry, there have been times when programming 
 
 ## Less Code Is More
 
-That said you might be confused about the title of the blog. For someone who loves to code it seems contradictory to advocate for writing less code. But for me, _Less Code is More_ is an important ground rule when developing new apps and systems.
+That said you might be confused about the title of the blog. For someone who loves to code it seems contradictory to advocate for writing less code. But for me, **Less Code is More** is an important ground rule when developing new apps and systems.
 
-If you're interested, the origin of the title comes from a talk a gave at TechDays 2018 in Helsinki. The title of the talk was mind-boggling _Forget the Web Backend: Static Serverless and Client-Side Code FTW!_. But there was one slide that I liked so much in its simplicity that it stuck with me and when it was time to come up with a name for the blog it immediately came to my mind.
+If you're interested, the origin of the title comes from a talk a gave at TechDays 2018 in Helsinki. The title of the talk was mind-boggling **Forget the Web Backend: Static Serverless and Client-Side Code FTW!**. But there was one slide that I liked so much in its simplicity that it stuck with me and when it was time to come up with a name for the blog it immediately came to my mind.
 
 ![Less Code Is More](./less_code_is_more_orig.png)
 
-This is a topic I will be coming back to often on this blog. In a nutshell, it is all about decreasing the TCO (total cost of ownership) since code is a liability and it also means that the code that IS still written is more important.
+This is a topic I will be coming back to often on this blog. In a nutshell, it is all about decreasing the TCO (total cost of ownership) since code is a liability and it also means that the code that **IS** still written is more important.
 
 ## The Big Picture
 
-Another thing that will be mentioned often on this blog is something I've dubbed _The Big Picture_. For me, it simply means all the things that I'm interested in software development intervened together.
+Another thing that will be mentioned often on this blog is something I've dubbed **The Big Picture**. For me, it simply means all the things that I'm interested in software development intervened together.
 
 For a long time now I've been thinking about how I could combine functional programming, serverless, web development, and machine learning.
 
@@ -29,7 +29,7 @@ Some of these are easier to combine than others. For example, web development an
 
 Serverless and web development is also pretty much a thing already. There are a lot of reference projects about how to write a backend web API using AWS Lambda. Examples can also be found for Google Cloud Functions and Azure Functions.
 
-One thing that I still have to work on is how to integrate machine learning to all of this. Or maybe I should instead talk about deep learning? I have to admit this is not my strong suit, but it's one of the most interesting fields of software development at the moment. I have done some tutorials about how to do machine learning with F# _(book ref?)_ so I have seen how you can combine machine learning and functional programming.
+One thing that I still have to work on is how to integrate machine learning to all of this. Or maybe I should instead talk about deep learning? I have to admit this is not my strong suit, but it's one of the most interesting fields of software development at the moment. I have done some tutorials about how to do machine learning with F# so I have seen how you can combine machine learning and functional programming.
 
 But like I said more of this will be coming later...
 
