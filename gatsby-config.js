@@ -2,10 +2,10 @@ module.exports = {
   siteMetadata: {
     title: 'Less Code Is More',
     author: 'Matti Petrelius',
-    description: 'A starter blog demonstrating what Gatsby can do.',
-    siteUrl: 'http://localhost:8000/',
+    description:
+      'A blog about serverless, functional programming, web development, machine learning and all the fun stuff.',
+    siteUrl: 'https://lesscodeismore.dev/',
   },
-  pathPrefix: '/gatsby-starter-blog',
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
