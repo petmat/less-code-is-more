@@ -9,7 +9,7 @@ import { rhythm } from '../utils/typography'
 import styled from 'styled-components'
 
 import { titleColor } from '../utils/commonStyles'
-import { GithubLink, TwitterLink } from './SomeLink'
+import { GithubLink, TwitterLink, RssLink } from './SomeLink'
 
 const NameText = styled.span`
   font-family: 'Knewave';
@@ -39,7 +39,8 @@ class Bio extends React.Component {
           Written by <NameText>Matti Petrelius</NameText> who is a fan of
           serverless and other cool things.
           <TwitterLink href="https://twitter.com/mattipet" />{' '}
-          <GithubLink href="https://github.com/petmat" />
+          <GithubLink href="https://github.com/petmat" />{' '}
+          <RssLink href="https://lesscodeismore.dev/rss.xml" />
         </p>
       </div>
     )
