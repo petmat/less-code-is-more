@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import Helmet from 'react-helmet'
+import { Link, StaticQuery, graphql } from 'gatsby'
 import { rhythm } from '../utils/typography'
 import styled, { createGlobalStyle } from 'styled-components'
 import logoPic from './less-code-is-more.svg'
@@ -39,65 +40,92 @@ const BlogPostTitleImage = styled.img`
 
 class Layout extends React.Component {
   render() {
-    const { location, title, children } = this.props
+    const { location, title, slug, children } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
-    let header
 
-    if (location.pathname === rootPath) {
-      header = (
-        <Link
-          style={{
-            backgroundImage: 'none',
-            textDecoration: 'none',
-            color: 'inherit',
-            textShadow: 'none',
-          }}
-          to={'/'}
-        >
-          <img
-            src={logoPic}
-            style={{
-              marginBottom: rhythm(2),
-              marginTop: rhythm(0.5),
-            }}
-          />
-        </Link>
-      )
-    } else {
-      header = (
-        <h3
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            marginTop: 0,
-            marginBottom: rhythm(1),
-          }}
-        >
-          <Link
-            style={{
-              backgroundImage: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-            to={'/'}
-          >
-            <BlogPostTitleImage src={logoPic} />
-          </Link>
-        </h3>
-      )
-    }
     return (
-      <div
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+      <StaticQuery
+        query={graphql`
+          query SiteTitleQuery {
+            site {
+              siteMetadata {
+                title
+                siteUrl
+              }
+            }
+          }
+        `}
+        render={data => {
+          let header
+
+          if (location.pathname === rootPath) {
+            header = (
+              <Link
+                style={{
+                  backgroundImage: 'none',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  textShadow: 'none',
+                }}
+                to={'/'}
+              >
+                <img
+                  src={logoPic}
+                  style={{
+                    marginBottom: rhythm(2),
+                    marginTop: rhythm(0.5),
+                  }}
+                />
+              </Link>
+            )
+          } else {
+            header = (
+              <h3
+                style={{
+                  fontFamily: 'Montserrat, sans-serif',
+                  marginTop: 0,
+                  marginBottom: rhythm(1),
+                }}
+              >
+                <Link
+                  style={{
+                    backgroundImage: 'none',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                  }}
+                  to={'/'}
+                >
+                  <BlogPostTitleImage src={logoPic} />
+                </Link>
+              </h3>
+            )
+          }
+          return (
+            <React.Fragment>
+              <Helmet title={data.site.siteMetadata.title}>
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                  name="twitter:image"
+                  content={`${data.site.siteMetadata.siteUrl}${slug ||
+                    ''}twitter-card.jpg`}
+                />
+              </Helmet>
+              <div
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  maxWidth: rhythm(24),
+                  padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+                }}
+              >
+                <GlobalStyle />
+                {header}
+                {children}
+              </div>
+            </React.Fragment>
+          )
         }}
-      >
-        <GlobalStyle />
-        {header}
-        {children}
-      </div>
+      />
     )
   }
 }

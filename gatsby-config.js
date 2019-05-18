@@ -43,6 +43,7 @@ module.exports = {
               includeDefaultCss: true,
             },
           },
+          'gatsby-remark-social-cards',
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
