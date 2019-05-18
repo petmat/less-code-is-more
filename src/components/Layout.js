@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { rhythm } from '../utils/typography'
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import logoPic from './less-code-is-more.svg'
 import { linkColor } from '../utils/commonStyles'
 
@@ -24,6 +24,16 @@ const GlobalStyle = createGlobalStyle`
     &:visited: {
       color: ${linkColor};
     }
+  }
+`
+
+const BlogPostTitleImage = styled.img`
+  margin-bottom: ${rhythm(1.5)};
+  margin-top: 0;
+  width: 300px;
+
+  @media (max-width: 600px) {
+    width: auto;
   }
 `
 
@@ -70,16 +80,7 @@ class Layout extends React.Component {
             }}
             to={'/'}
           >
-            <img
-              src={logoPic}
-              style={{
-                marginBottom: rhythm(1.5),
-                marginTop: 0,
-                width: '300px',
-                position: 'relative',
-                left: '-7px',
-              }}
-            />
+            <BlogPostTitleImage src={logoPic} />
           </Link>
         </h3>
       )
