@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { rhythm } from '../utils/typography'
 import { createGlobalStyle } from 'styled-components'
-import logoPic from './less-code-is-more.png'
+import logoPic from './less-code-is-more.svg'
 import { linkColor } from '../utils/commonStyles'
 
 const GlobalStyle = createGlobalStyle`
@@ -47,8 +47,8 @@ class Layout extends React.Component {
           <img
             src={logoPic}
             style={{
-              marginBottom: rhythm(1.5),
-              marginTop: 0,
+              marginBottom: rhythm(2),
+              marginTop: rhythm(0.5),
             }}
           />
         </Link>
