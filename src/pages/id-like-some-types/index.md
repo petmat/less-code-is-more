@@ -8,9 +8,9 @@ This post is a part of a larger **TypeScript in the Back** series. **TypeScript*
 This is the first part of the series.
 
 Part 1: I'd like some Type in my Script instead of Java, please!  
-Part 2: Node.js and TypeScript: Back to the types  
-Part 3: TypeScript unit testing: Typed mocks and toolchains  
-Part 4: Serverless and TypeScript: A Match Made in the Cloud
+Part 2: 👨‍🔧  
+Part 3: 👨‍🔧  
+Part 4: 👨‍🔧
 
 In this post, I will try to explain why you should use TypeScript and what it is good for. The later parts will go into more detail about different use cases for TypeScript.
 
@@ -221,6 +221,6 @@ This was the first part of a four-part blog post series that I'm working on. The
 ### TypeScript in the back series
 
 Part 1: I'd like some Type in my Script instead of Java, please!  
-Part 2: Node.js and TypeScript: Back to the types  
-Part 3: TypeScript unit testing: Typed mocks and toolchains  
-Part 4: Serverless and TypeScript: A Match Made in the Cloud
+Part 2: 👨‍🔧  
+Part 3: 👨‍🔧  
+Part 4: 👨‍🔧
