@@ -106,6 +106,15 @@ class Layout extends React.Component {
           return (
             <React.Fragment>
               <Helmet title={data.site.siteMetadata.title}>
+                <meta
+                  name="twitter:title"
+                  content={data.site.siteMetadata.title}
+                />
+                <meta name="og:title" content={data.site.siteMetadata.title} />
+                <meta
+                  name="twitter:text:title"
+                  content={data.site.siteMetadata.title}
+                />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                   name="twitter:image"
