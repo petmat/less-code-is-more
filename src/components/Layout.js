@@ -43,7 +43,7 @@ const BlogPostTitleImage = styled.img`
 
 class Layout extends React.Component {
   render() {
-    const { location, title, slug, children } = this.props
+    const { location, title, slug, excerpt, children } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
 
     return (
@@ -110,6 +110,9 @@ class Layout extends React.Component {
                   name="twitter:title"
                   content={data.site.siteMetadata.title}
                 />
+                {excerpt && (
+                  <meta name="twitter:description" content={excerpt} />
+                )}
                 <meta name="og:title" content={data.site.siteMetadata.title} />
                 <meta
                   name="twitter:text:title"

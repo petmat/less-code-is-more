@@ -43,7 +43,18 @@ module.exports = {
               includeDefaultCss: true,
             },
           },
-          'gatsby-remark-social-cards',
+          {
+            resolve: 'gatsby-remark-social-cards',
+            options: {
+              title: {
+                color: 'white',
+              },
+              meta: {
+                color: 'white',
+              },
+              background: '#180531',
+            },
+          },
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',

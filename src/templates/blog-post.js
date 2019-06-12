@@ -18,6 +18,7 @@ class BlogPostTemplate extends React.Component {
         location={this.props.location}
         title={siteTitle}
         slug={post.fields.slug}
+        excerpt={post.excerpt}
       >
         <Helmet
           htmlAttributes={{ lang: 'en' }}
