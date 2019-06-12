@@ -26,6 +26,9 @@ const GlobalStyle = createGlobalStyle`
       color: ${linkColor};
     }
   }
+  .gatsby-highlight {
+    margin-bottom: 1.666rem;
+  }
 `
 
 const BlogPostTitleImage = styled.img`

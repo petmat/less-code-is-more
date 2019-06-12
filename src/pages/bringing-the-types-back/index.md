@@ -5,7 +5,7 @@ date: '2019-06-13T12:00:00.000Z'
 
 ![Bringing the Types back to the Back](./bring-it.svg)
 
-In this post I will dive into how TypeScript can be utilized on the Backend. TypeScript is much more widely in use on the frontend, but it suites the backend just as well.
+In this post, I will dive into how TypeScript can be utilized on the Backend. TypeScript is much more widely in use on the frontend, but it suites the backend just as well.
 
 This post is a part of a larger **TypeScript in the Back** series. **TypeScript** is taking the web and **JavaScript** development world by storm and it has some interesting implications on how we do things.
 
@@ -26,11 +26,11 @@ Don't get me wrong, Java and C# are still popular and there are newer languages 
 
 ## So let's bring the types back
 
-There are benefits to dynamic languages. It is easier to get moving with them and writing code without type annotations feels fast. Also the absence of a compilation step makes the development cycle faster. There absolutely situations where dynamic languages are a perfect choice.
+There are benefits to dynamic languages. It is easier to get moving with them and writing code without type annotations feels fast. Also, the absence of a compilation step makes the development cycle faster. There absolutely situations where dynamic languages are a perfect choice.
 
-But like I wrote in the last post [I'd like some Type in my Script instead of Java, please!](../id-like-some-types/), there are clear benefits to static languages also. Static typing makes it easier to avoid certain type of bugs and it makes it easier to refactor the code.
+But like I wrote in the last post [I'd like some Type in my Script instead of Java, please!](../id-like-some-types/), there are clear benefits to static languages also. Static typing makes it easier to avoid certain types of bugs and it makes it easier to refactor the code.
 
-The solution is of course TypeScript. TypeScript allows developers to still use the same tools they are used to with JavaScript, while introducing static typing to the mix.
+The solution is of course TypeScript. TypeScript allows developers to still use the same tools they are used to with JavaScript while introducing static typing to the mix.
 
 ## Building and running TypeScript in Node.js
 
@@ -50,7 +50,7 @@ npm install --save-dev typescript
 
 The benefit from installing TypeScript to the project directory is that allows having different versions of TypeScript in different projects.
 
-In the simplest example you would have a TypeScript file `index.ts` and you run the compiler with:
+In the simplest example, you would have a TypeScript file `index.ts` and you run the compiler with:
 
 ```
 tsc index.ts
@@ -74,7 +74,7 @@ Here `index.js` is replaced with `.`, which means the current directory and Node
 
 ### But what if you have more than one TypeScript file?
 
-In a more realistic app there is more than one TypeScript file. You could just list all the files like:
+In a more realistic app, there is more than one TypeScript file. You could just list all the files like:
 
 ```
 tsc file1.ts file2.ts file3.ts
@@ -82,7 +82,7 @@ tsc file1.ts file2.ts file3.ts
 
 but that would get cumbersome and boring fast.
 
-Also you might not want the outputted JS files to reside in the same directory with the TS source code. For this and for other compiler options, a `tsconfig.json` file can be added to the root of the project.
+Also, you might not want the outputted JS files to reside in the same directory with the TS source code. For this and for other compiler options, a `tsconfig.json` file can be added to the root of the project.
 
 After adding the `tsconfig.json` file, compiling the code is as easy as:
 
@@ -117,7 +117,7 @@ and to run the app:
 npm start
 ```
 
-### The insides of an tsconfig.json file
+### The insides of a tsconfig.json file
 
 If you want to start fast you can create a new tsconfig.json file with:
 
@@ -148,7 +148,7 @@ Here's an example of what a `tsconfig.json` file in one of my more simple Node.j
 
 #### target
 
-`target` is the ECMAScript target version. With Node.js `es6` has usually been the target. It means that the resulting code will be almost identical to the TypeScript excluding the type annotations. However, since Node.js 8.x it has been possible to safely target `es2017` as well. The difference is that with `es6` target TypeScript compiles `async/await` to contrived looking and more verbose `__awaiter` polyfill.
+`target` is the ECMAScript target version. With Node.js `es6` has usually been the target. It means that the resulting code will be almost identical to the TypeScript excluding the type annotations. However, since Node.js 8.x it has been possible to safely target `es2017` as well. The difference is that with `es6` target TypeScript compiles `async/await` to a contrived looking and more verbose `__awaiter` polyfill.
 
 For example this beautiful await/async:
 
@@ -228,11 +228,11 @@ Of course, this is not super important since there is probably not a very big ef
 
 #### rootDir
 
-`rootDir` is the directory where TypeScript compiler will start looking for TypeScript source code files. Usually this is the root directory of the project or for example `src`. You don't have to explicitly set this value which will make the compiler to look for all TS files in your project directory.
+`rootDir` is the directory where TypeScript compiler will start looking for TypeScript source code files. Usually, this is the root directory of the project or for example `src`. You don't have to explicitly set this value which will make the compiler to look for all TS files in your project directory.
 
 #### sourceMap
 
-`sourceMap` controls whether the compiler should in addition to the JS output files generate a source map `.js.map` file. These are files for the debugger that it can use to show the actual TS source code instead of the running JS code. It makes a huge difference if the compiled JS differs a lot from the TS code. So I recommend always setting this to `true`.
+`sourceMap` controls whether the compiler should in addition to the JS output files generate a source map `.js.map` file. These are files for the debugger that it can use to show the actual TS source code instead of the running JS code. It makes a huge difference if the compiled JS differs a lot from the TS code. So I recommend always set this to `true`.
 
 #### strict
 
@@ -254,7 +254,7 @@ If you write TypeScript without type annotations then some times TypeScript is s
 
 ##### No implicit this
 
-Using this in JavaScript is notoriously error prone. It is **so** easy to write code where you think `this` refers to the object inside which the function is declared, without explicitly binding the function to the object. `noImplicitThis` helps by giving a warning if this is used in an implicit way.
+Using this in JavaScript is notoriously error-prone. It is **so** easy to write code where you think `this` refers to the object inside which the function is declared, without explicitly binding the function to the object. `noImplicitThis` helps by giving a warning if this is used in an implicit way.
 
 ##### Always strict
 
@@ -264,13 +264,13 @@ While TypeScript with modern editors and linters already warns and hints for man
 
 ##### Strict bind call apply
 
-This is a fairly new option introduced in TypeScript version 3.2 which enables strong type checking on bind, call and apply function object methods. With these methods you can do some surprising things and easily get into trouble. The strict type checking helps to avoid errors with them.
+This is a fairly new option introduced in TypeScript version 3.2 which enables strong type checking on bind, call and apply function object methods. With these methods, you can do some surprising things and easily get into trouble. The strict type checking helps to avoid errors with them.
 
 ##### Strict null checks
 
-This is probably my favorite strict option, because it puts the compiler into a strict null checking mode. In this mode there are strict limitations to how null and undefined should be handled. Naturally this is to avoid the dreaded `Cannot read property 'x' of undefined` error and other errors related to null and undefined.
+This is probably my favorite strict option because it puts the compiler into a strict null checking mode. In this mode, there are strict limitations to how null and undefined should be handled. Naturally, this is to avoid the dreaded `Cannot read property 'x' of undefined` error and other errors related to null and undefined.
 
-In strict null checking mode you have to explicitly say in the type that it can be null or undefined. Otherwise it is illegal to set null or undefined to it. For example type `T` does not accept setting it to null but type `T | null` does. This also leads to the fact that since you cannot assign a value of type `T | null` to `T` you have to first check the value for null so it becomes `T`. And all of this is checked by the compiler, and you will get an compiler error instead of running into the error while running the code!
+In strict null checking mode, you have to explicitly say in the type that it can be null or undefined. Otherwise, it is illegal to set null or undefined to it. For example type `T` does not accept setting it to null but type `T | null` does. This also leads to the fact that since you cannot assign a value of type `T | null` to `T` you have to first check the value for null so it becomes `T`. And all of this is checked by the compiler, and you will get a compiler error instead of running into the error while running the code!
 
 ##### Strict function types
 
@@ -282,7 +282,7 @@ This one requires that the `strictNullChecks` option is also enabled. It require
 
 ## Visual Studio Code and debugging
 
-Visual Studio Code has a really great support for debugging Node.js applications. It makes it easy to step through the code and see what values are assigned and what is really happening without littering the code with console.logs.
+Visual Studio Code has really great support for debugging Node.js applications. It makes it easy to step through the code and see what values are assigned and what is really happening without littering the code with console.logs.
 
 You can get the same experience while using TypeScript as well. You just have to change the default Node.js debugging configuration a bit.
 
@@ -292,7 +292,7 @@ When you create a new Node.js app or open an app that does not have debugging co
 
 ![VS Code Debug Configuration](./vs-code-debug-config.png)
 
-Click on the cog wheel icon and choose Node.js as the environment. VS Code will create a launch.json for you with the configuration needed to debug a Node.js app. The problem is that you might need to check the program path so that it points to the actual outputted main entry point JS file, if it is in a different output directory.
+Click on the cog wheel icon and choose Node.js as the environment. VS Code will create a launch.json for you with the configuration needed to debug a Node.js app. The problem is that you might need to check the program path so that it points to the actual outputted main entry point JS file if it is in a different output directory.
 
 Another thing you need to add is the TypeScript build pre-launch task: `"preLaunchTask": "tsc: build - tsconfig.json"`
 
@@ -320,9 +320,9 @@ One thing to note is that you cannot set breakpoints to the TypeScript code unle
 
 ## Summary and what comes next
 
-That's about it, what you need to know to use TypeScript in your Node.js code! Though there are still some issues you are bound to run into, if you start using TypeScript in larger Node.js app. In the next blog post we'll dive into those things.
+That's about it, what you need to know to use TypeScript in your Node.js code! Though there are still some issues you are bound to run into if you start using TypeScript in larger Node.js app. In the next blog post, we'll dive into those things.
 
-I personally think that having TypeScript in Node.js is worth all the extra effort it takes to get it running. Somehow it is even surprising that TypeScript is not more popular in the backend. Most of the Node.js libraries have good typings that you can install from the `@types` NPM registry. For example you will quite fast run into the situation where you import a Node.js base class library module like `fs` and get a compiler error that it can't find that module. To fix this issue you must install typing for node:
+I personally think that having TypeScript in Node.js is worth all the extra effort it takes to get it running. Somehow it is even surprising that TypeScript is not more popular in the backend. Most of the Node.js libraries have good typings that you can install from the `@types` NPM registry. For example, you will quite fast run into the situation where you import a Node.js base class library module like `fs` and get a compiler error that it can't find that module. To fix this issue you must install typings for Node.js:
 
 ```
 npm install --save-dev @types/node
