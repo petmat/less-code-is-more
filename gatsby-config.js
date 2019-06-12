@@ -50,6 +50,12 @@ module.exports = {
                 color: 'white',
               },
               meta: {
+                parts: [
+                  '- ',
+                  { field: 'author' },
+                  ' » ',
+                  { field: 'date', format: 'mmmm dS' },
+                ],
                 color: 'white',
               },
               background: '#180531',

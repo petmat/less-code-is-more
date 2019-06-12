@@ -1,6 +1,7 @@
 ---
 title: Build 2019
 date: '2019-05-07T22:12:03.284Z'
+author: Matti Petrelius
 ---
 
 ![Build 2019](./build-2019.png)

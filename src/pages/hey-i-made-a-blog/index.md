@@ -1,6 +1,7 @@
 ---
 title: Hey, I made a blog! (finally)
 date: '2019-04-24T22:12:03.284Z'
+author: Matti Petrelius
 ---
 
 This blog has been in the making for several years. It's a good thing though it lasted that long since I now feel like I have something actually interesting to write about.

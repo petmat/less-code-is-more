@@ -1,6 +1,7 @@
 ---
 title: Bringing the Types back to the Back
 date: '2019-06-13T12:00:00.000Z'
+author: Matti Petrelius
 ---
 
 ![Bringing the Types back to the Back](./bring-it.svg)
