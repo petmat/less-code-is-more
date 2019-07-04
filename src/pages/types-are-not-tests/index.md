@@ -113,7 +113,7 @@ After setting up the test running scripts my NPM scripts look like the following
 
 I'm pretty sure everyone who has ever written unit tests, has run into a situation where you need to pass a non-trivial object or a function to the tested function and it can't be null.
 
-In JavaScript, this is not a difficult task. You can easily create objects with the required properties and functions and pass them where needed. There are mock libraries for JavaScript such as [Sinon](https://sinonjs.org/) but they are more about creating fake functions with faked behavior and spy abilities than mocking objects.
+In JavaScript, this is not a difficult task. You can easily create objects with the required properties and functions and pass them where needed. There are mock libraries for JavaScript such as [Sinon.JS](https://sinonjs.org/) but they are more about creating fake functions with faked behavior and spy abilities than mocking objects.
 
 But when you start writing tests in TypeScript you quickly face two decisions.
 
@@ -140,8 +140,8 @@ class Bar {
   method2() {
     console.log('2')
   }
-  method3() {
-    console.log('3')
+  method3(a: number, b: number) {
+    return a + b
   }
 }
 ```
@@ -173,7 +173,7 @@ Whether this is an actual concern is up to debate. At least it is not any worse 
 
 Personally, I like to think that the test code is just as important as the actual business code, and therefore I am a proponent for having types also in testable constructs and mocks.
 
-## Use a mocking library
+## 2. Use a mocking library
 
 If you want to have static types in tests, you will either have to start writing your own mocks that implement all the required properties and methods or use a library that takes care of it automatically.
 
@@ -186,7 +186,7 @@ const barMock = {
   prop3: '3',
   method1: () => {},
   method2: () => {},
-  method3: () => {},
+  method3: (a: number, b: number) => 0,
 }
 ```
 
@@ -206,7 +206,9 @@ I come from a C# background and in C# writing mocks for tests is an unavoidable 
 
 **typemoq** is a mock library for TypeScript with a very similar syntax as Moq. I thought this would be an obvious first choice for me so I gave it a try.
 
-However, I ran into some typing errors with it that were extremely hard to fix. Also, the syntax seemed in TypeScript a bit less idiomatic than in C#. It just felt like there had to be a better option. Also one of the big problems with typemoq is that it always executes the constructor of the class that it is instantiating. For me at least this was a problem.
+However, I ran into some typing errors with it that were extremely hard to fix. Also, the syntax seemed in TypeScript a bit less idiomatic than in C#. It just felt like there had to be a better option.
+
+Also one of the big problems with typemoq is that it always executes the constructor of the class that it is instantiating. For me at least this caused some weird and hard to catch errors in tests.
 
 ### ts-mockito
 
@@ -214,9 +216,11 @@ This is a mock library that is based on the popular mock library in Java called 
 
 After trying typemoq and subsequently ts-mockito, I settled on using ts-mockito. It seemed like the simplest way to get the mocks done that I needed.
 
+Also the fact that it does **not** execute the constructor of the class that is mocked is very nice.
+
 ### substitute.js
 
-This is the new kid on the block. substitute.js tries to take the clean syntax of ts-mockito even a bit further and it brings one really big feature: mocking interfaces.
+This is the new kid on the block. substitute.js tries to take the clean syntax of ts-mockito even a bit further and it brings one really big feature: **mocking interfaces**.
 
 Mocking interfaces is not supported in either typemoq or ts-mockito and it is a real bummer. For example, sometimes you might want to mock something like AxiosInstance (An interface from the popular HTTP client).
 
@@ -224,7 +228,7 @@ But I haven't given substitute.js a real try yet. Currently, my choice is ts-moc
 
 ### A mock example with ts-mockito
 
-Give the previous example we could mock `bar` with ts-mockito with the following code:
+Basic mocking with ts-mockito is really simple. Give the previous example we could mock `bar` with ts-mockito with the following code:
 
 ```typescript
 const barMock = mock(Bar)
@@ -235,6 +239,26 @@ Then to use the actual mock instance you would pass it to foo:
 ```typescript
 foo(instance(barMock))
 ```
+
+You can also use function `when` and the anyX functions to stub method calls like this:
+
+```typescript
+when(barMock.method3(1, 1)).thenReturn(2)
+```
+
+Also, if you prefer to just return the same value for any parameter values then you can do that with functions like `anything, anyString, anyNumber, ...`
+
+```typescript
+when(barMock.method3(anyNumber(), anyNumber())).thenReturn(2)
+```
+
+And you can use function `verify` to make sure a method gets called:
+
+```typescript
+verify(barMock.method3(1, 1)).called()
+```
+
+All in all, ts-mockito feels a lot like using **Sinon.JS** but with the static typing goodness. I recommend it for all the features except for the disappointing fact that it still does not support mocking interfaces. It might because of this one missing feature I might take a look at substitute.js next.
 
 ## A summary
 
