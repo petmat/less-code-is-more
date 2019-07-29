@@ -10,12 +10,12 @@ In this post, I will dive into how TypeScript can be utilized on the Backend. Ty
 
 This post is a part of a larger **TypeScript in the Back** series. **TypeScript** is taking the web and **JavaScript** development world by storm and it has some interesting implications on how we do things.
 
-This is the first part of the series.
+This is the second part of the series.
 
-[Part 1: I'd like some Type in my Script instead of Java, please!](../id-like-some-types/)  
-Part 2: Bringing the Types back to the Back  
-Part 3: 👨‍🔧  
-Part 4: 👨‍🔧
+[Part 1: I'd Like Some Type in My Script Instead of Java, Please!](../id-like-some-types/)  
+[Part 2: Bringing the Types Back to the Back](../bringing-the-types-back)  
+[Part 3: Types Are Not Tests and Tests Are Not Types](../types-are-not-tests)  
+[Part 4: Serverless TypeScript](../serverless-typescript)
 
 ## Where did the types go?
 
@@ -333,7 +333,7 @@ This was the second part of a four-part blog post series that I'm working on. Th
 
 ### TypeScript in the back series
 
-[Part 1: I'd like some Type in my Script instead of Java, please!](../id-like-some-types/)  
-Part 2: Bringing the Types back to the Back  
-Part 3: 👨‍🔧  
-Part 4: 👨‍🔧
+[Part 1: I'd Like Some Type in My Script Instead of Java, Please!](../id-like-some-types/)  
+[Part 2: Bringing the Types Back to the Back](../bringing-the-types-back)  
+[Part 3: Types Are Not Tests and Tests Are Not Types](../types-are-not-tests)  
+[Part 4: Serverless TypeScript](../serverless-typescript)

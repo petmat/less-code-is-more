@@ -16,8 +16,8 @@ This is the third part of the series.
 
 [Part 1: I'd Like Some Type in My Script Instead of Java, Please!](../id-like-some-types/)  
 [Part 2: Bringing the Types Back to the Back](../bringing-the-types-back)  
-Part 3: Types Are Not Tests and Tests Are Not Types  
-Part 4: 👨‍🔧
+[Part 3: Types Are Not Tests and Tests Are Not Types](../types-are-not-tests)  
+[Part 4: Serverless TypeScript](../serverless-typescript)
 
 ## It's Not Either-Or
 
@@ -272,5 +272,5 @@ This was the third part of a four-part blog post series that I'm working on. The
 
 [Part 1: I'd Like Some Type in My Script Instead of Java, Please!](../id-like-some-types/)  
 [Part 2: Bringing the Types Back to the Back](../bringing-the-types-back)  
-Part 3: Types Are Not Tests and Tests Are Not Types  
-Part 4: 👨‍🔧
+[Part 3: Types Are Not Tests and Tests Are Not Types](../types-are-not-tests)  
+[Part 4: Serverless TypeScript](../serverless-typescript)

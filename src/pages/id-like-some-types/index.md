@@ -8,10 +8,10 @@ This post is a part of a larger **TypeScript in the Back** series. **TypeScript*
 
 This is the first part of the series.
 
-Part 1: I'd like some Type in my Script instead of Java, please!  
-[Part 2: Bringing the Types back to the Back](../bringing-the-types-back)  
-Part 3: 👨‍🔧  
-Part 4: 👨‍🔧
+[Part 1: I'd Like Some Type in My Script Instead of Java, Please!](../id-like-some-types/)  
+[Part 2: Bringing the Types Back to the Back](../bringing-the-types-back)  
+[Part 3: Types Are Not Tests and Tests Are Not Types](../types-are-not-tests)  
+[Part 4: Serverless TypeScript](../serverless-typescript)
 
 In this post, I will try to explain why you should use TypeScript and what it is good for. The later parts will go into more detail about different use cases for TypeScript.
 
@@ -221,7 +221,7 @@ This was the first part of a four-part blog post series that I'm working on. The
 
 ### TypeScript in the back series
 
-Part 1: I'd like some Type in my Script instead of Java, please!  
-[Part 2: Bringing the Types back to the Back](../bringing-the-types-back)  
-Part 3: 👨‍🔧  
-Part 4: 👨‍🔧
+[Part 1: I'd Like Some Type in My Script Instead of Java, Please!](../id-like-some-types/)  
+[Part 2: Bringing the Types Back to the Back](../bringing-the-types-back)  
+[Part 3: Types Are Not Tests and Tests Are Not Types](../types-are-not-tests)  
+[Part 4: Serverless TypeScript](../serverless-typescript)
