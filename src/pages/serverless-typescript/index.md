@@ -4,7 +4,7 @@ date: '2019-08-05T12:00:00.000Z'
 author: Matti Petrelius
 ---
 
-I love Serverless and TypeScript ❤. I also think Serverless is the best thing that has happened to the backend and TypeScript is the best thing that has happened to Node.js. So it makes sense combining the two to make something awesome.
+I love **Serverless** and **TypeScript** ❤. I also think Serverless is the best thing that has happened to the backend and TypeScript is the best thing that has happened to **Node.js**. So it makes sense combining the two to make something awesome.
 
 ![Serverless TypeScript](./clouds.jpg)
 
@@ -12,7 +12,7 @@ I love Serverless and TypeScript ❤. I also think Serverless is the best thing 
 
 Serverless has become extremely popular amongst the so-called cloud native technologies. With the promise of only paying for what you use and automatic scaling it sets the bar to a new high. You don't have to worry about the infrastructure, just worry about your code.
 
-At the same time JavaScript or more precisely Node.js has become one of the most popular languages for writing serverless applications. There are probably a lot of reasons for it, but my guess would be that the popularity of JavaScript in serverless is due to the combination of both having a concentration on fast time-to-market and serverless and JavaScript both being particularly popular in the frontend development.
+At the same time **JavaScript** or more precisely Node.js has become one of the most popular languages for writing serverless applications. There are probably a lot of reasons for it, but my guess would be that the popularity of JavaScript in serverless is due to some of their similarities: Both focus on fast **time-to-market** and both are particularly popular amongst **frontend** developers.
 
 This post is a part of a larger **TypeScript in the Back** series. **TypeScript** is taking the web and **JavaScript** development world by storm and it has some interesting implications on how we do things.
 
@@ -25,11 +25,11 @@ Part 4: Serverless TypeScript
 
 ## Bring the Types Back to Serverless
 
-JavaScript is a lot like serverless in the way that it tries to make writing software as frictionless as possible. Everything seems real easy from the start. But often the trick is not how fast you can write new code, than how easily you can modify old code.
+JavaScript is a lot like serverless in the way that it tries to make writing software as frictionless as possible. Everything seems easy from the start. However, most of the time the trick is not how fast you can write new code, but how easily you can change the old code.
 
-So maintainability and readability of the code becomes a real concern. With serverless and JavaScript you can move real fast and create new things. It would be nice though if you could somehow balance moving fast and still making sure things work correctly and the code is easily maintainable.
+So maintainability and readability of the code becomes a real concern. With serverless and JavaScript you can move real fast and create new things. It would be nice though if you could somehow balance moving fast and still making sure things work correctly and the code is easy to maintain.
 
-Luckily there is a solution. Just like with regular JavaScript code, you can also use TypeScript instead of JavaScript. And just like in regular Node.js, TypeScript can provide you with some real benefits.
+Luckily there is a solution. Just like with regular JavaScript code, you can also use TypeScript instead of JavaScript with serverless. And just like in regular Node.js, TypeScript can provide you with some real benefits.
 
 ## TypeScript with FaaS offerings
 
@@ -37,21 +37,21 @@ Luckily there is a solution. Just like with regular JavaScript code, you can als
 
 FaaS or **Functions as a Service** is the compute part of serverless. You can run your code (functions) in the cloud without having to know what VM or hardware the code is actually run on. Basically, you don't have to worry about the underlying infrastructure at all, just the code you write and it's dependencies.
 
-Each of the three big cloud providers have their own FaaS offering. AWS has Lambda, Azure has Azure Functions and Google has Cloud Functions. They all have the same basic idea and developing for them is pretty close to each other. All of them support JavaScript (Node.js) as a language choice as well as a varied range of other languages.
+Each of the three big cloud providers have their own FaaS offering. **AWS** has **AWS Lambda**, **Azure** has **Azure Functions** and **Google** has **Cloud Functions**. They all have the same basic idea and developing for them is pretty close to each other. All of them support JavaScript (Node.js) as a language as well as a varied range of other languages.
 
 But how about TypeScript? That's a whole another story.
 
 Azure Functions has a very well documented support for TypeScript. They recently released new templates for writing TypeScript functions which makes it really easy to get started.
 
-AWS Lambda does not have official documentation about how to use TypeScript, but you can easily find _unofficial_ posts about how to set up your TypeScript configuration. There are basically three approaches. First is to just use TypeScript compiler or webpack loader to compile TypeScript to JavaScript. Then all you have to do is to point the Lambda configuration to the correct JS file. Second is to use [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) which makes configuring a bit easier. And the third is to use [Serverless Framework](https://serverless.com/) which has a plugin for using TypeScript.
+AWS Lambda does not have official documentation about how to use TypeScript, but you can easily find _unofficial_ posts about how to set up your TypeScript configuration. There are basically three approaches. First one is to just use TypeScript compiler or Webpack loader to compile TypeScript to JavaScript. Then all you have to do is to point the Lambda configuration to the correct JS file. Second is to use [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) which makes configuring a bit easier. And the third is to use [Serverless Framework](https://serverless.com/) which has a plugin for using TypeScript.
 
-Google Cloud Functions also does not have instructions on their docs about what to do if you want to use TypeScript. Curiously enough though Firebase Functions has this [doc](https://firebase.google.com/docs/functions/typescript). You can also use Serverless Framework plugin also if you want to run your functions on Google Cloud Platform.
+Google Cloud Functions also does not have instructions on their docs about what to do if you want to use TypeScript. Curiously enough though, Firebase Functions has this [doc](https://firebase.google.com/docs/functions/typescript). You can also use Serverless Framework plugin also if you want to run your functions on Google Cloud Platform.
 
 ## How To: TypeScript Azure Functions
 
 A great starting point for creating your first TypeScript Azure Function is [this](https://azure.microsoft.com/en-us/blog/improving-the-typescript-support-in-azure-functions/) Azure Blog Post. It details the simplest way to create a TypeScript App using either [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local) or [Azure Functions Extension for Visual Studio Code](https://code.visualstudio.com/tutorials/functions-extension/getting-started).
 
-Personally I use Visual Studio Code so much that I always use the Azure Functions extension for it to create new Function Apps.
+Personally, I use **Visual Studio Code** so much that I always use the Azure Functions extension for it to create new Function Apps.
 
 It is really easy to create a new Azure Functions App and for example an HTTP trigger function:
 
@@ -108,7 +108,7 @@ But this is not everything that is different. `package.json` has also changed. T
 
 The most important parts are the `build` and `watch` scripts. As you can see they both call the TypeScript compiler. Build to just compile the files and watch to start the compiler in a watch mode that listens to file changes.
 
-Another thing to notice is that there is no additional typings installed. The `@azure/functions` package contains the TypeScript definitions needed.
+Another thing to notice is that there are no additional typings installed. The `@azure/functions` package contains the TypeScript definitions needed.
 
 Is there anything else? If we take a look at `function.json`, there's a new property called `scriptFile`. Here's the full content:
 
@@ -172,19 +172,19 @@ With the support for TypeScript in the Visual Studio Code extension, it is reall
 
 > 💡 I have much more experience with Azure Functions than other serverless platforms, so my AWS and Google examples can be less perfect. But they are my best effort at showing how you can work with them and TypeScript.
 
-With AWS Lambda you don't have one clear way to go forward with TypeScript. However, at least for me it seems AWS SAM is the new and preferred way to write serverless applications. There is also an extension for Visual Studio Code called [AWS Toolkit](https://aws.amazon.com/visualstudiocode/) that works in a similar fashion as the Azure Functions extension. You can from Visual Studio Code create, run and debug your lambdas locally.
+With AWS Lambda you don't have one clear way to go forward with TypeScript. However, it seems [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) is the new and preferred way to write serverless applications. There is also an extension for Visual Studio Code called [AWS Toolkit](https://aws.amazon.com/visualstudiocode/) that works in a similar fashion as the Azure Functions extension. You can from Visual Studio Code create, run and debug your functions locally.
 
-Unfortunately, unlike with the Azure Functions extension there is no option for creating a TypeScript lambda. But we can use the plain Node.js labmda as a starting point:
+Unfortunately, unlike with the Azure Functions extension there is no option for creating a TypeScript function. But we can use the plain Node.js function as a starting point:
 
 ![AWS Toolkit](./aws-toolkit.gif)
 
 ### Warp to TypeScript!
 
-Now that we have our hello world example Node.js lambda created, it needs to be converted to TypeScript.
+Now that we have our hello world example Node.js function created, it needs to be converted to TypeScript.
 
 > 💡 This is the simplest way to make the transformation to TypeScript. It is far from the best and most complete way to do it. You can find other TypeScript examples on GitHub that for example use webpack. I wanted to keep this example as simple as possible.
 
-The steps needed to convert the basic Node.js lambda to a TypeScript lambda are:
+The steps needed to convert the basic Node.js function to a TypeScript function are:
 
 1. Install required packages
 2. Initialize TypeScript config
@@ -208,7 +208,7 @@ We obviously need `typescript` but we also need typings for AWS Lambda in the `@
 
 #### 2. Initialize TypeScript config
 
-Let's create and initialize tsconfig.json:
+Let's create and initialize `tsconfig.json`:
 
 ```
 npx tsc --init
@@ -224,7 +224,7 @@ The default config file is quite bloated with all the comments and commented out
 
 #### 3. Set build script
 
-Ok, now the next step is to add the script that we will use to build our TypeScript lambda to JavaScript. In the scripts section of package.json add the following script:
+Ok, now the next step is to add the script that we will use to build our TypeScript function to JavaScript. In the scripts section of package.json add the following script:
 
 ```json
 "build": "tsc"
@@ -337,9 +337,9 @@ If all goes well you should end up with an `app.js` file inside a `dist` directo
 
 #### 7. Run! 🔥
 
-Great! Everything is set, and all we have to do is to run our lambda! But wait, it seems that the AWS Toolkit is not giving us the nice options for running and debugging lambdas locally. It looks like the features integrated to Visual Studio Code only support JavaScript and not TypeScript. I'm not sure if there is a way around this, but hopefully soon AWS Toolkit will support also TypeScript so that this is not an issue anymore.
+Great! Everything is set, and all we have to do is to run our function! But wait, it seems that the AWS Toolkit is not giving us the nice options for running and debugging functions locally. It looks like the features integrated to Visual Studio Code only support JavaScript and not TypeScript. I'm not sure if there is a way around this, but hopefully we will get support for TypeScript in AWS Toolkit soon.
 
-Luckily, we can still run the lambda locally using AWS SAM CLI. Just navigate to the directory with the `template.yaml` file and type:
+Luckily, we can still run the function locally using **AWS SAM CLI**. Just navigate to the directory with the `template.yaml` file and type:
 
 > 💡 The following requires you to have AWS SAM CLI installed (https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 
@@ -367,7 +367,7 @@ Ok, so we've got the final one of the three big ones left: Google Cloud Function
 
 The most confusing thing about Google Cloud Functions is that there is also a thing called [Cloud Functions for Firebase](https://firebase.google.com/docs/functions/). So you can create a cloud function directly in the Google Cloud Platform or you can use the Firebase tools. Which one should you choose?
 
-I don't really know for sure. It seems Firebase provides a thin wrapper around Cloud Functions so that you use them easier and with the other Firebase services. Other than that I guess it depends on if you're already using one or another.
+I don't really know for sure. It seems **Firebase** provides a thin wrapper around Cloud Functions so that you use them easier and with the other Firebase services. Other than that I guess it depends on if you're already using one or another.
 
 There's also something called [Functions Framework](https://cloud.google.com/functions/docs/functions-framework) that makes it easier to deal with JavaScript functions.
 
@@ -389,7 +389,7 @@ cd my-func
 touch index.ts
 ```
 
-Then we will initialize NPM and install the Functions Framework package and TypeScript:
+Then we will initialize our app for NPM and install the Functions Framework package and TypeScript:
 
 ```
 npm init -y
@@ -523,6 +523,8 @@ So this is the Serverless Framework way if you prefer it. I didn't try it, but t
 ## What did we learn today?
 
 This has to be by far the longest blog post I've ever written and there's a ton of stuff here. I don't really expect anyone to just read all of it and absorb it immediately. Hopefully this can work as a reference for those who are interested in using TypeScript with serverless.
+
+Also if you were not convinced about TypeScript in serverless before, then maybe this series has helped with that also. I recommend you at least give TypeScript a chance if you're doing serverless with JavaScript (Node.js).
 
 In any case, absolute kudos to anyone who made it till the end of the post.
 
