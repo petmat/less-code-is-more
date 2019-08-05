@@ -26,6 +26,16 @@ const GlobalStyle = createGlobalStyle`
       color: ${linkColor};
     }
   }
+  blockquote {
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    font-size: 0.8rem;
+    background: rgba(0,0,0,0.4);
+    font-style: italic;
+    color: #c0c0c0;
+  }
   .gatsby-highlight {
     margin-bottom: 1.666rem;
   }

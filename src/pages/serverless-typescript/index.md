@@ -1,10 +1,10 @@
 ---
 title: Serverless TypeScript
-date: '2019-07-10T12:00:00.000Z'
+date: '2019-08-05T12:00:00.000Z'
 author: Matti Petrelius
 ---
 
-I like Serverless and TypeScript and Serverless is the best thing that has happened to the backend and TypeScript is the best thing that has happened to Node.js.
+I love Serverless and TypeScript ❤. I also think Serverless is the best thing that has happened to the backend and TypeScript is the best thing that has happened to Node.js. So it makes sense combining the two to make something awesome.
 
 ![Serverless TypeScript](./clouds.jpg)
 
@@ -170,7 +170,7 @@ With the support for TypeScript in the Visual Studio Code extension, it is reall
 
 ## How To: TypeScript AWS Lambda
 
-> ❕ I have much more experience with Azure Functions than other serverless platforms, so my AWS and Google examples can be less perfect. But they are my best effort at showing how you can work with them and TypeScript.
+> 💡 I have much more experience with Azure Functions than other serverless platforms, so my AWS and Google examples can be less perfect. But they are my best effort at showing how you can work with them and TypeScript.
 
 With AWS Lambda you don't have one clear way to go forward with TypeScript. However, at least for me it seems AWS SAM is the new and preferred way to write serverless applications. There is also an extension for Visual Studio Code called [AWS Toolkit](https://aws.amazon.com/visualstudiocode/) that works in a similar fashion as the Azure Functions extension. You can from Visual Studio Code create, run and debug your lambdas locally.
 
@@ -182,7 +182,7 @@ Unfortunately, unlike with the Azure Functions extension there is no option for 
 
 Now that we have our hello world example Node.js lambda created, it needs to be converted to TypeScript.
 
-> ❕ This is the simplest way to make the transformation to TypeScript. It is far from the best and most complete way to do it. You can find other TypeScript examples on GitHub that for example use webpack. I wanted to keep this example as simple as possible.
+> 💡 This is the simplest way to make the transformation to TypeScript. It is far from the best and most complete way to do it. You can find other TypeScript examples on GitHub that for example use webpack. I wanted to keep this example as simple as possible.
 
 The steps needed to convert the basic Node.js lambda to a TypeScript lambda are:
 
@@ -202,7 +202,7 @@ We install the required packages with:
 npm install --save-dev typescript @types/node @types/aws-lambda
 ```
 
-> Note that you will want to be in the correct directory when running this command. Make sure you are in the same directory as the generated package.json file.
+> 💡 Note that you will want to be in the correct directory when running this command. Make sure you are in the same directory as the generated package.json file.
 
 We obviously need `typescript` but we also need typings for AWS Lambda in the `@types/aws-lambda` package. Adding Node.js typings is always a good idea too. You need the typings at least for Promises.
 
@@ -341,7 +341,7 @@ Great! Everything is set, and all we have to do is to run our lambda! But wait, 
 
 Luckily, we can still run the lambda locally using AWS SAM CLI. Just navigate to the directory with the `template.yaml` file and type:
 
-> ❕ The following requires you to have AWS SAM CLI installed (https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+> 💡 The following requires you to have AWS SAM CLI installed (https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 
 ```
 sam local invoke --no-event
@@ -463,7 +463,7 @@ There is one more way to create TypeScript serverless apps and it's the [Serverl
 
 The way you create a new serverless app with Serverless Framework is by first choosing a right template. For AWS there is a built in template called `aws-nodejs-typescript`. The way you create an app using that template is:
 
-> ❕ Before running this you will need to install Serverless Framework CLI with `npm install --global serverless`
+> 💡 Before running this you will need to install Serverless Framework CLI with `npm install --global serverless`
 
 ```
 serverless create -t aws-nodejs-typescript
