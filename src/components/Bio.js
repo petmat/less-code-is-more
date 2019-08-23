@@ -12,7 +12,7 @@ import { titleColor } from '../utils/commonStyles'
 import { GithubLink, TwitterLink, RssLink } from './SomeLink'
 
 const NameText = styled.span`
-  font-family: 'Knewave';
+  font-family: 'Kaushan Script';
   color: ${titleColor};
 `
 

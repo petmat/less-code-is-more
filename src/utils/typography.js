@@ -4,10 +4,10 @@ const typography = new Typography({
   baseFontSize: '18px',
   baseLineHeight: 1.666,
   googleFonts: [
-    { name: 'Knewave', styles: ['400'] },
+    { name: 'Kaushan Script', styles: ['400'] },
     { name: 'Roboto', styles: ['400'] },
   ],
-  headerFontFamily: ['Knewave', 'serif'],
+  headerFontFamily: ['Kaushan Script', 'serif'],
   headerColor: '#0081fd',
 
   bodyFontFamily: ['Roboto', 'sans-serif'],
