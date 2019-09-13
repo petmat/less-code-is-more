@@ -4,7 +4,11 @@ date: '2019-08-09T12:00:00.000Z'
 author: Matti Petrelius
 ---
 
-My last post was the final part of the TypeScript in the Back series but I just could not help myself not to write another TypeScript post! So I'm calling this one a bonus round and the topic is **Utility Types**. These types have been a mystery for me a long time until recently so I thought that might be the case for others as well. Hopefully after reading this post you will understand more about utility types and where you should use them.
+My last post was the final part of the TypeScript in the Back series but I just could not help myself not to write another TypeScript post! So I'm calling this one a bonus round and the topic is **Utility Types**. These types have been a mystery for me a long time until recently so I thought that might be the case for others as well.
+
+A complete explanation of all the utility types would be one huge blog post and take me forever to write so instead I'm going to first list all of them and then give examples of the ones which are my favorite.
+
+For a more complete reference about the utility types you can look into the official TypeScript [docs](https://www.typescriptlang.org/docs/handbook/utility-types.html).
 
 ![Utility Types](./utilities.jpg)
 
@@ -27,11 +31,9 @@ In case you've never heard of utility types you might be confused about the topi
 - Required&lt;T>
 - ThisType&lt;T>
 
-The TypeSript documentation has a [page about Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html) but it's a bit concise. It doesn't really explain why utility types are so useful.
+The main reason why I think utility types are so awesome is that often when dealing with JavaScript code and libraries there's a need to do complex typing. You want the power and flexibility of JavaScript and the safety of strong types and that requires an advanced type system.
 
-The main reason why I think utility types are so awesome is that when dealing with JavaScript code and libraries there's often a need for complex typings. You want the power and flexibility of JavaScript and the safety of strong types and that requires an advanced type system.
-
-> TODO: Here the best example of using utility types with JavaScript style code/libraries (complex typing)
+Utility types are for **type transformations** in the same way that there are many utility functions in JavaScript for **data transformations** (e.g. map, filter, reduce, and even more in libraries like lodash and ramda). Utility types typically take in one or more types and output a new type.
 
 ## Partial&lt;T>
 
@@ -79,15 +81,25 @@ class Person {
   id: number
   name: string
   country: string
+  city: string
+  age: number
 
-  constructor(id: number, name: string, country: string) {
+  constructor(
+    id: number,
+    name: string,
+    country: string,
+    city: string,
+    age: number
+  ) {
     this.id = id
     this.name = name
     this.country = country
+    this.city = city
+    this.age = age
   }
 }
 
-const person = new Person(1, 'Matti Petrelius', 'Finland')
+const person = new Person(1, 'Matti Petrelius', 'Finland', 'Helsinki', 37)
 ```
 
 Now this is already a bit more work. Even with our simple example it's apparent that the code gets more verbose. There's quite a lot of repetition: the properties, constructor parameters and setting property values. Adding new properties is clearly more cumbersome than in the C# example or with an interface.
@@ -100,21 +112,46 @@ Finally we get to how you can use the `Partial<T>` utility type to make initiali
 class Person {
   id: number = 0
   name: string = ''
-  country: string = ''
+  csountry: string = ''
+  city: string = ''
+  age: number = 0
 
   constructor(init: Partial<Person>) {
     Object.assign(this, init)
   }
 }
 
-const person = new Person({
-  id: 1,
-  name: 'Matti Petrelius',
-})
+const person = new Person({ id: 1, name: 'Matti Petrelius' })
 ```
 
-This might not seem like an huge improvement but it has some clear benefits. The constructor now takes a single parameter and is reduced to just a single call to the `Object.assign` function. Also the constructor can be called with any properties, just like you can with an object initializer.
+This is a pretty nice improvement compared to the original. The constructor now takes a single parameter and is reduced to just a single call to the `Object.assign` function. Also the constructor can be called with any properties, just like you can with an object initializer.
 
 There's something we had to do with the properties though. First we needed to add initializer to them. Since the properties may or may not be initialized in the constructor we have to make sure they wont be `undefined`.
 
-That was maybe a bit lengthy explanation, but hopefully it was useful and gives you one example where the `Partial<T>` type is useful.
+## Let's go a bit type crazy
+
+There's a couple of examples that use a bunch of the utility types to create types that do validation in compile time that are usually only possible in runtime.
+
+### RequireAtLeastOne
+
+Let's imagine we need a type that has some properties which are optional but then it also has properties of which at least one must have a value. There's a way to implement this with utility types:
+
+```typescript
+type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
+  T,
+  Exclude<keyof T, Keys>
+> &
+  {
+    [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>
+  }[Keys]
+```
+
+Let's break this down to parts. First there is the `Pick<T, K>` utility type. It's being used in a number of places in the type transformation. The first time it's used it defines a type that picks the properties `Exclude<keyof T, Keys>` from type `T`.
+
+But wait! There's another utility function `Exclude<T, U>`. It creates a new type that has all the properties from `T` except the properties that are assignable to the properties in `U`.
+
+Unfortunately it gets even more complicated. Instead of the `U` here being a simple type it is a type `Keys` which in turn is defined as `Keys extends keyof T = keyof T`. The extends says that `Keys` is a type that must inherit the type `keyof T = keyof T`. The `keyof` is an operator that returns a type of the permitted property names for type `T`. The `= keyof T` part is a default value for the type parameter. This means that by default if the second type parameter is not provided, it will have the value of `keyof T`.
+
+Ok so let's go back a bit. We now know that by default the `Keys` type provided to `Exclude<T, U>` as the second type parameter `U` is the property names of the type `T`.
+
+> TODO TEST ASSUMPTION: What this means is that by default all the properties will be exluded?
