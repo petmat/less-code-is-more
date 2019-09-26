@@ -155,3 +155,5 @@ Unfortunately it gets even more complicated. Instead of the `U` here being a sim
 Ok so let's go back a bit. We now know that by default the `Keys` type provided to `Exclude<T, U>` as the second type parameter `U` is the property names of the type `T`.
 
 > TODO TEST ASSUMPTION: What this means is that by default all the properties will be exluded?
+
+> 📌 As a disclaimer, this is not something I came up by myself, but I found the type from StackOverflow when looking for a type that could do this. Heres the link: https://stackoverflow.com/questions/40510611/typescript-interface-require-one-of-two-properties-to-exist
