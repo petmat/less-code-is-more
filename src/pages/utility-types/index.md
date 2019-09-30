@@ -37,44 +37,9 @@ Utility types are for **type transformations** in the same way that there are ma
 
 ## Partial&lt;T>
 
-The first time I ran into the `Partial<T>` type was when using **classes** in TypeScript. I have a background of writing a lot of **C#** code and with C# to create a new instance of a class the most common way is to use something called an **object initializer**:
+The first time I ran into the `Partial<T>` type was when using **classes** in TypeScript. I have a background of writing a lot of **C#** code and with C# to create a new instance of a class the most common way is to use something called an **object initializer**.
 
-```c#
-class Person {
-  public int Id { get; set; }
-  public string Name { get; set; }
-  public string Country { get; set; }
-}
-
-var person = new Person {
-  Id = 1,
-  Name = "Matti Petrelius",
-}
-```
-
-In TypeScript there's not a similar feature like an object initializer. You could use an **interface** instead of an class and simply construct an object like you would in JavaScript:
-
-```typescript
-interface Person {
-  id: number
-  name: string
-  country: string
-}
-
-const person: Person = {
-  id: 1,
-  name: 'Matti Petrelius',
-  country: 'Finland',
-}
-```
-
-To be honest this is what I often do with TypeScript nowadays, but many prefer to use classes. Maybe you want to encapsulate data inside the object or inject dependencies and you like to use classes for that.
-
-Also with an interface you still have to initialize all the properties, or you get a compiler error.
-
-With a class you need to define a **constructor** that initializes all the properties of the object.
-
-> 💡 The truth is a bit more complex as usual with TypeScript. You only need to initialize all properties if the **strictPropertyInitialization** compiler option is enabled. But like I've stated in previous blog posts (e.g. [I'd Like Some Types](./id-like-some-types)), you should really always have the strict mode enabled with TypeScript. It gives you so much more guarantees about your code being correct.
+In TypeScript there's not a similar feature like an object initializer. With a class you need to define a **constructor** that initializes all the properties of the object.
 
 ```typescript
 class Person {
@@ -102,11 +67,7 @@ class Person {
 const person = new Person(1, 'Matti Petrelius', 'Finland', 'Helsinki', 37)
 ```
 
-Now this is already a bit more work. Even with our simple example it's apparent that the code gets more verbose. There's quite a lot of repetition: the properties, constructor parameters and setting property values. Adding new properties is clearly more cumbersome than in the C# example or with an interface.
-
-One thing to also notice is that when using constructor parameters the order of the parameters counts and you always have to pass values for each of the properties even if you don't really need them. Sure you could make the parameters **optional** but the order would still matter and it would not be as flexible as an object initializer.
-
-Finally we get to how you can use the `Partial<T>` utility type to make initializing the object a bit nicer:
+That's a lot of code just to initialize an object. We can do better by using the `Partial<T>` utility type.
 
 ```typescript
 class Person {
@@ -124,17 +85,127 @@ class Person {
 const person = new Person({ id: 1, name: 'Matti Petrelius' })
 ```
 
-This is a pretty nice improvement compared to the original. The constructor now takes a single parameter and is reduced to just a single call to the `Object.assign` function. Also the constructor can be called with any properties, just like you can with an object initializer.
+This is a pretty nice improvement compared to the original. The constructor now takes a single parameter and is reduced to just a single call to the `Object.assign` function. Also the constructor can be called with any number of properties, just like you can with an object initializer.
 
 There's something we had to do with the properties though. First we needed to add initializer to them. Since the properties may or may not be initialized in the constructor we have to make sure they wont be `undefined`.
 
+## Readonly&lt;T>
+
+There's a `readonly` keyword in TypeScript that allows you to mark a property on a type to only allow reading the value and not reassigning it.
+
+```typescript
+type Foo = {
+  readonly bar: string
+}
+
+const baz: Foo = {
+  bar: 'qux',
+}
+
+baz.bar = 'quux' // Cannot assign to 'bar' because it is a read-only property.
+```
+
+The utility type `Readonly<T>` takes a type as a parameter and creates a type with all the properties marked as `readonly`.
+
+```typescript
+type ReadAndWriteFoo = {
+  bar1: string
+  bar2: string
+}
+
+type Foo = Readonly<ReadAndWriteFoo>
+
+const baz: Foo = {
+  bar1: 'qux1',
+  bar2: 'qux2',
+}
+
+baz.bar1 = 'quux' // Cannot assign to 'bar1' because it is a read-only property.
+```
+
+The utility type `Readonly<T>` is useful if you want to make all properties readonly. Preventing reassignment is useful in functional programming paradigms. For example React uses `Readonly<T>` in it's type definitions to make props and state types readonly so that the type checker will throw an error if you try to assign a value to them.
+
+```typescript
+interface Props {
+  readonly bar: number
+}
+
+interface State {
+  readonly baz: number
+}
+
+export class Something extends React.Component<Props, State> {
+  foo() {
+    this.props.bar = 123 // ERROR: (props are immutable)
+    this.state.baz = 456 // ERROR: (one should use this.setState)
+  }
+}
+```
+
+## Record&lt;K,T>
+
+This utility type can be used to map the properties of a type to another type. For example you can use the `keyof` operator to get the properties of a type and then create another type with `Record<K,T>` having the same properties but with different type.
+
+```typescript
+type PropDefinition = {
+  typeName: string
+  description: string
+}
+
+type Foo = {
+  bar: string
+  baz: number
+}
+
+type FooDefinition = Record<keyof Foo, PropDefinition>
+
+const fooDef: FooDefinition = {
+  bar: { typeName: 'string', description: 'This is bar' },
+  baz: { typeName: 'number', description: 'This is baz' },
+}
+```
+
+## Pick&lt;T,K>
+
+This utility type is useful when you want to create a new type that has a subset of another type's properties. Often you need some properties from a type but not all of them for example fro a view model or data transfer object. In those cases the `Pick<T, K>` utility type can be useful.
+
+```typescript
+type Foo = {
+  bar: string
+  baz: number
+  qux: boolean
+}
+
+type NewFoo = Pick<Foo, 'bar' | 'baz'>
+
+const newFoo: NewFoo = {
+  bar: 'bar',
+  baz: 'baz',
+}
+```
+
+## Omit&lt;T,K>
+
+`Omit<T, K>` is the opposite of `Pick<T, K>`. You can use it to create a new type that has a subset of another type's properties, but instead of providing the properties you want to keep you provide the properties you don't want in the new type. Sometimes it's easier to list the properties to exclude instead of all properties you want to include.
+
+```typescript
+type Foo = {
+  bar: string
+  baz: number
+  qux: boolean
+}
+
+type NewFoo = Omit<Foo, 'qux'>
+
+const newFoo: NewFoo = {
+  bar: 'bar',
+  baz: 'baz',
+}
+```
+
 ## Let's go a bit type crazy
 
-There's a couple of examples that use a bunch of the utility types to create types that do validation in compile time that are usually only possible in runtime.
-
-### RequireAtLeastOne
-
-Let's imagine we need a type that has some properties which are optional but then it also has properties of which at least one must have a value. There's a way to implement this with utility types:
+Utility types are super powerful and a testament to the awesomeness of the type system in TypeScript. For more proof I will just add a couple of very complex but useful types here that I found on Stack Overflow. I won't go into detail about them but you can read about them in the Stack overflow thread: https://stackoverflow.com/a/49725198
 
 ```typescript
 type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
@@ -144,16 +215,13 @@ type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
   {
     [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>
   }[Keys]
+
+type RequireOnlyOne<T, Keys extends keyof T = keyof T> = Pick<
+  T,
+  Exclude<keyof T, Keys>
+> &
+  {
+    [K in Keys]-?: Required<Pick<T, K>> &
+      Partial<Record<Exclude<Keys, K>, undefined>>
+  }[Keys]
 ```
-
-Let's break this down to parts. First there is the `Pick<T, K>` utility type. It's being used in a number of places in the type transformation. The first time it's used it defines a type that picks the properties `Exclude<keyof T, Keys>` from type `T`.
-
-But wait! There's another utility function `Exclude<T, U>`. It creates a new type that has all the properties from `T` except the properties that are assignable to the properties in `U`.
-
-Unfortunately it gets even more complicated. Instead of the `U` here being a simple type it is a type `Keys` which in turn is defined as `Keys extends keyof T = keyof T`. The extends says that `Keys` is a type that must inherit the type `keyof T = keyof T`. The `keyof` is an operator that returns a type of the permitted property names for type `T`. The `= keyof T` part is a default value for the type parameter. This means that by default if the second type parameter is not provided, it will have the value of `keyof T`.
-
-Ok so let's go back a bit. We now know that by default the `Keys` type provided to `Exclude<T, U>` as the second type parameter `U` is the property names of the type `T`.
-
-> TODO TEST ASSUMPTION: What this means is that by default all the properties will be exluded?
-
-> 📌 As a disclaimer, this is not something I came up by myself, but I found the type from StackOverflow when looking for a type that could do this. Heres the link: https://stackoverflow.com/questions/40510611/typescript-interface-require-one-of-two-properties-to-exist
