@@ -203,6 +203,165 @@ const newFoo: NewFoo = {
 }
 ```
 
+## Exclude&lt;T,U>
+
+It sounds same as the `Pick<T, K>` utility function but there is a clear difference. The two type arguments for `Exclude<T, U>` are both types and more precisely conditional types. The result is a type that consists of types in `T` that are not assignable to type `U`.
+
+If you are not familiar with conditional types you can read about them here https://www.typescriptlang.org/docs/handbook/advanced-types.html#conditional-types.
+
+```typescript
+type T0 = Exclude<'a' | 'b' | 'c', 'a'> // "b" | "c"
+type T1 = Exclude<'a' | 'b' | 'c', 'a' | 'b'> // "c"
+type T2 = Exclude<string | number | (() => void), Function> // string | number
+```
+
+## Extract&lt;T,U>
+
+This is the opposite of `Exclude<T,U>` and therefore also operates on conditional types. It creates a type with types from `T` that are assignable to `U`.
+
+```typescript
+type T0 = Extract<'a' | 'b' | 'c', 'a' | 'f'> // "a"
+type T1 = Extract<string | number | (() => void), Function> // () => void
+```
+
+## NonNullable&lt;T>
+
+This type also operates on conditional types. It removes `null` and `undefined` types from the given type and return the resulting type.
+
+Here is the implementation of the type:
+
+```typescript
+type NonNullable<T> = Exclude<T, undefined | null>
+```
+
+So in the essence the following type definitions are equal:
+
+```typescript
+type T0 = NonNullable<string | number | undefined> // string | number
+type T1 = Exclude<string | number | undefined, undefined | null> // string | number
+```
+
+Where you would use this is probably in situations where you have an existing type that has nullable properties but you want to end up with a type without any properties that can have nulls in them.
+
+## ReturnType&lt;T>
+
+This is a type that takes a type parameter that needs to be a function and returns the return type of that function. For example:
+
+```typescript
+type T1 = ReturnType<(s: string) => number> // number
+```
+
+Here is the implementation for the type:
+
+```typescript
+type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any
+```
+
+One situation where you might want to use this is when you have a function that returns an object created with an object literal and is therefore inferred by TypeScript. You could define the type mimicing the object literal but an easier way is to use `ReturnType<T>`:
+
+```typescript
+function results(num1, num2) {
+  return {
+    sum: num1 + num2,
+    equals: num1 === num2,
+    concat: `${num1}${num2}`,
+  }
+}
+
+type Foo = ReturnType<typeof results> // { sum: number, equals: boolean, concat: string }
+```
+
+## InstanceType&lt;T>
+
+This is a somewhat mindboggling one. It's not easy to come up with a real-life example of how you would use `InstanceType<T>` but I'll try. First of all, here is the implementation:
+
+```typescript
+type InstanceType<T extends new (...args: any) => any> = T extends new (
+  ...args: any
+) => infer R
+  ? R
+  : any
+```
+
+What it does is takes a constructor function type and returns its return type. A naive example would be the following:
+
+```typescript
+class A {
+  b = 0
+  c = ''
+}
+
+type T = InstanceType<typeof A> // A
+```
+
+But this does not really make sense since the resulting type is just `A` so this could have been much easier expressed with just `type T = A`.
+
+But what if we want to declare a generic factory function. Like this:
+
+```typescript
+declare function create<T extends new () => any>(c: T): InstanceType<T>
+
+class A {
+  b: 0
+}
+
+const a = create(A) // A
+```
+
+Since `create<T>` is a generic function the return type is not explicitly known. The return type also cannot be simply `T` because it refers to the type itself but rather `InstanceType<T>` which means that the function returns an instance of type `T`.
+
+## Required&lt;T>
+
+This utility type takes a type as argument `T` and transforms all of it's properties to required:
+
+```typescript
+interface Foo {
+  a?: number
+  b?: string
+}
+
+const foo: Foo = { a: 0 } // This is fine
+
+type Bar = Required<Foo>
+
+const bar: Bar = { a: 0 } // Error: property 'b' missing
+```
+
+One can imagine this being useful when a type is inferred from an object literal and some fields have been marked as nullable even though the intention is to have a type with all required properties.
+
+## ThisType&lt;T>
+
+Saved the best for last, or rather the most esoteric one. This type does not return a transformed type like all the other ones. It is used to mark the contextual `this` type. Take a look at this example (it's directly from the TypeScript documentation. I just couldn't come up with my own example. Not really sure there are any other examples.):
+
+> 💡 By the way, this utility type cannot be used unless you also enable the `noImplicitThis` compiler option.
+
+```typescript
+type ObjectDescriptor<D, M> = {
+  data?: D
+  methods?: M & ThisType<D & M> // Type of 'this' in methods is D & M
+}
+
+function makeObject<D, M>(desc: ObjectDescriptor<D, M>): D & M {
+  let data: object = desc.data || {}
+  let methods: object = desc.methods || {}
+  return { ...data, ...methods } as D & M
+}
+
+let obj = makeObject({
+  data: { x: 0, y: 0 },
+  methods: {
+    moveBy(dx: number, dy: number) {
+      this.x += dx // Strongly typed this
+      this.y += dy // Strongly typed this
+    },
+  },
+})
+
+obj.x = 10
+obj.y = 20
+obj.moveBy(5, 5)
+```
+
 ## Let's go a bit type crazy
 
 Utility types are super powerful and a testament to the awesomeness of the type system in TypeScript. For more proof I will just add a couple of very complex but useful types here that I found on Stack Overflow. I won't go into detail about them but you can read about them in the Stack overflow thread: https://stackoverflow.com/a/49725198
