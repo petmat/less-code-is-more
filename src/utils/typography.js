@@ -5,7 +5,7 @@ const typography = new Typography({
   baseLineHeight: 1.666,
   googleFonts: [
     { name: 'Kaushan Script', styles: ['400'] },
-    { name: 'Roboto', styles: ['400'] },
+    { name: 'Roboto', styles: ['400', '700'] },
   ],
   headerFontFamily: ['Kaushan Script', 'serif'],
   headerColor: '#0081fd',
