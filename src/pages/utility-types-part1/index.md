@@ -1,10 +1,16 @@
 ---
-title: Bonus Round - Utility Types
+title: Bonus Round - Utility Types - Part 1
 date: '2019-08-09T12:00:00.000Z'
 author: Matti Petrelius
 ---
 
 My previous post was the final part of the **TypeScript in the Back** series but I just could not help myself not to write another **TypeScript** post! So I'm calling this one a bonus round and the topic is **Utility Types**. These types have been a mystery for me a long time until recently so I thought that might be the case for others as well.
+
+The post is divided into **two parts** because I realized I was working on this for a long time and it started to get a bit lengthy.
+
+This is the **first part** and will be about the first six utility types: `Partial<T>`, `Required<T>`, `Readonly<T>`, `Record<K,T>`, `Pick<T,K>` and `Omit<T,K>`.
+
+The **second part** will be about the rest of the types.
 
 ![Utility Types](./utilities.jpg)
 
@@ -15,37 +21,11 @@ My previous post was the final part of the **TypeScript in the Back** series but
 In case you've never heard of utility types you might be confused about the topic or why you should care. First of all, here are the types:
 
 - Partial&lt;T>
+- Required&lt;T>
 - Readonly&lt;T>
 - Record&lt;K,T>
 - Pick&lt;T,K>
 - Omit&lt;T,K>
-- Exclude&lt;T,U>
-- Extract&lt;T,U>
-- NonNullable&lt;T>
-- ReturnType&lt;T>
-- InstanceType&lt;T>
-- Required&lt;T>
-- ThisType&lt;T>
-
-// TODO: Add these fuckers
-
-```typescript
-/**
- * Obtain the parameters of a function type in a tuple
- */
-type Parameters<T extends (...args: any) => any> = T extends (
-  ...args: infer P
-) => any
-  ? P
-  : never
-
-/**
- * Obtain the parameters of a constructor function type in a tuple
- */
-type ConstructorParameters<
-  T extends new (...args: any) => any
-> = T extends new (...args: infer P) => any ? P : never
-```
 
 The main reason why I think utility types are so awesome is that often when dealing with JavaScript code and libraries there's a need to do complex typing. You want the power and flexibility of JavaScript and the safety of static types and that requires a really advanced type system.
 
