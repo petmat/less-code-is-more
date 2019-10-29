@@ -44,7 +44,7 @@ module.exports = {
             },
           },
           {
-            resolve: 'gatsby-remark-social-cards',
+            resolve: 'gatsby-remark-custom-social-cards',
             options: {
               title: {
                 color: 'white',
