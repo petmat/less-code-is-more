@@ -1,5 +1,5 @@
 ---
-title: Hey, I made a blog! (finally)
+title: Hey, I made a blog! (finallyyyz)
 date: '2019-04-24T22:12:03.284Z'
 author: Matti Petrelius
 ---
@@ -16,7 +16,7 @@ That said you might be confused about the title of the blog. For someone who lov
 
 If you're interested, the origin of the title comes from a talk a gave at TechDays 2018 in Helsinki. The title of the talk was mind-boggling **Forget the Web Backend: Static Serverless and Client-Side Code FTW!**. But there was one slide that I liked so much in its simplicity that it stuck with me and when it was time to come up with a name for the blog it immediately came to my mind.
 
-![Less Code Is More](./less_code_is_more_orig.png)
+![Less Code Is More](./title.png)
 
 This is a topic I will be coming back to often on this blog. In a nutshell, it is all about decreasing the TCO (total cost of ownership) since code is a liability and it also means that the code that **IS** still written is more important.
 

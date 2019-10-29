@@ -4,7 +4,7 @@ date: '2019-05-07T22:12:03.284Z'
 author: Matti Petrelius
 ---
 
-![Build 2019](./build-2019.png)
+![Build 2019](./title.png)
 
 Build is the main technology conference for Microsoft where they announce the most significant new features of Azure, Office 365 and Windows. Each year every Microsoft developer is looking forward to the event to hear about where Microsoft is focusing on and what the future will look for them.
 

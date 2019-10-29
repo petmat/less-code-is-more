@@ -89,10 +89,20 @@ const generateCard = async (
   const height = 314
 
   // Initialize a title image or new blank image
-  const imagePath = path.join(`./src/pages/`, slug, 'title.jpg')
+  const jpgImagePath = path.join(`./src/pages/`, slug, 'title.jpg')
+  const pngImagePath = path.join(`./src/pages/`, slug, 'title.png')
+
+  let imagePath
+  if (fs.existsSync(jpgImagePath)) {
+    imagePath = jpgImagePath
+  }
+  if (fs.existsSync(pngImagePath)) {
+    imagePath = pngImagePath
+  }
+
   let image
 
-  if (fs.existsSync(imagePath)) {
+  if (imagePath) {
     image = await Jimp.read(imagePath)
     image.resize(600, 314).brightness(-0.5)
   } else {
@@ -129,7 +139,6 @@ const generateCard = async (
 }
 
 module.exports = ({ markdownNode }, options) => {
-  console.log('triggered plugin')
   const post = markdownNode.frontmatter
 
   if (markdownNode.fields) {
