@@ -1,6 +1,6 @@
 ---
 title: Bonus Round - Utility Types - Part 2
-date: '2019-10-31T12:00:00.000Z'
+date: '2019-11-07T12:00:00.000Z'
 author: Matti Petrelius
 ---
 
@@ -35,23 +35,6 @@ Before we get going we should learn a couple more features in TypeScript that wi
 
 > 💡 This part 2 of utility types assumes that you have already read the part 1 and its **type shenanigans**. If you haven't done it yet, please go read [part 1](../utility-types-part1) because otherwise some of the utility type implementations here will be really hard to understand.
 
-### conditional types
-
-### infer
-
-The keyword `infer` is used in conjunction with **conditional types**. Take a look at the following example:
-
-```typescript
-type Unpacked<T> = T extends (infer U)[] ? U : T
-
-type T1 = Unpacked<string[]> // string
-type T2 = Unpacked<string> // string
-```
-
-`Unpacked<T>` takes a type argument `T` and if the type is an array, it infers **real type** of the type argument `U` and returns it. If the type argument `T` is not an array then the type just returns the type `T`.
-
-`infer` is heavily used in some of the utility types in this blog post.
-
 ### never
 
 `never` is a very special type representing **values that never occur**. It is a bit of an abstract concept but best explained with examples. For example a function has a return type of `never` if it never reaches its endpoint:
@@ -85,6 +68,54 @@ function foo(...args: any[]) {
 
 This function can take any number of arguments and log them. The rest operator will be visible in many of the utility type implementations so it is important you know what it is.
 
+### Conditional types
+
+A **conditional type** select one of two possible types based on a type relationship test:
+
+```typescript
+T extends U ? X : Y
+```
+
+This reads that when type `T` is assignable to type `U` the resulting type is `X` otherwise `Y`.
+
+A rather naive but a clear example of how a conditional type can be used:
+
+```typescript
+type TypeName<T> = T extends string
+  ? 'string'
+  : T extends number
+  ? 'number'
+  : 'object'
+
+type T0 = TypeName<string> // string
+type T1 = TypeName<number> // number
+```
+
+### Distributive conditional types
+
+There's one more thing about conditional types. If the checked type is a **naked type** parameter, then the conditional type is a **distributive conditional type**. When distributive conditional type is applied to a union type it is distributed over the union type.
+
+For example the above `TypeName<T>` would return the following for a union type:
+
+```typescript
+type T2 = TypeName<string | number> // string | number
+```
+
+### infer
+
+The keyword `infer` is used in conjunction with conditional types. Take a look at the following example:
+
+```typescript
+type Unpacked<T> = T extends (infer U)[] ? U : T
+
+type T1 = Unpacked<string[]> // string
+type T2 = Unpacked<string> // string
+```
+
+`Unpacked<T>` takes a type argument `T` and if the type is an array, it infers **real type** of the type argument `U` and returns it. If the type argument `T` is not an array then the type just returns the type `T`.
+
+`infer` is heavily used in some of the utility types in this blog post.
+
 > 💡 Don't mix up **rest operator** with the **spread operator**. They look exactly the same but have a completely different meaning. The only way to tell them apart is by knowing the context they are used in. To learn more about the spread operator go here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 
 ### Lookup types
@@ -113,7 +144,7 @@ This utility type is like `Omit<T, K>` from [Part 1](../utility-types-part1) but
 type Exclude<T, U> = T extends U ? never : T
 ```
 
-Do you still remember conditional types? Here we are introduced to one. Also we have a curious type called `never`. The implementation reads that if `T` is assignable to `U` return type `never` otherwise `T`. And since the conditional type is also an distributive conditional type, it is applied over union types, resulting in `never` when the type is not assignable to `U`. And because `string | never | number` results in `string | number` the `never` values are simply removed from the resulting union type.
+Remember conditional types? Here we are introduced to one. Also we are using the `never` type. The implementation reads that if `T` is assignable to `U` return type `never` otherwise `T`. And since the conditional type is also an distributive conditional type, it is applied over union types, resulting in `never` when the type is not assignable to `U`. The `never` is not a possible type so it is simply removed from the union type.
 
 Here's an example of how to use `Exclude<T, U>`:
 
@@ -226,7 +257,7 @@ Since `create<T>` is a generic function the return type is not explicitly known.
 
 ## ThisType&lt;T>
 
-Saved the best for last, or rather the most esoteric one. This type is an exception to the rule in that it does not return a transformed type like all the other ones. It is used to mark the contextual `this` type. As such, it's just a marker interface:
+This is one of the most esoteric one of the utility types. This type is an exception to the rule in that it does not return a transformed type like all the other ones. It is used to mark the contextual `this` type. As such, it's just a marker interface:
 
 ```typescript
 interface ThisType<T> {}
@@ -324,7 +355,7 @@ Notice that `InstanceType<T>` is used here in the same way `ReturnType<T>` was u
 
 ## Let's go a bit type crazy
 
-Utility types are super powerful and a testament to the awesomeness of the type system in TypeScript. For more proof I would like to introduce one more very complex but useful type that I found on Stack Overflow (https://stackoverflow.com/a/49725198)
+Utility types are super powerful and a testament to the awesomeness of the type system in TypeScript. For more proof I would like to introduce one very complex but useful type that I found on Stack Overflow (https://stackoverflow.com/a/49725198)
 
 ### RequireAtLeastOne&lt;T, Keys>
 
@@ -376,7 +407,7 @@ John is a `Person` with all optional properties. Jack and Jill are of type `Pers
 
 Joe is also a `PersonWithContact` but it causes a type error saying that `email` is required. This is because it does not satisfy the typing rule that either `phoneNumber` or `email` are required. The error message does not help us by telling that we could also set `phoneNumber` it simply picks the first of the required properties. Why this happens will hopefully become more apparent by reading further.
 
-### Disassembling `RequireAtLeastOne<T, Keys>`
+### Disassembling RequireAtLeastOne&lt;T, Keys>
 
 Let's take a closer look at the `RequireAtLeastOne<T, Keys>` type. Starting with the type arguments. `T` is the type we are transforming. `Keys` is a union type of the names of the properties we want to change and it must be assignable to `keyof T` which means that the properties given must belong to the type `T`.
 
@@ -396,7 +427,7 @@ and
 
 The first part simply collects all the properties from type `T` that are not included in the given list of properties.
 
-The second part is more complex. It loops over the property names in `Keys` and results in another intersection type of two types:
+The second part is more complex. It loops over the property names in `Keys` and each iteration results in another intersection type of two types:
 
 ```typescript
 Required<Pick<T, K>>
