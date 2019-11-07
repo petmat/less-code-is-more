@@ -4,7 +4,7 @@ date: '2019-11-07T12:00:00.000Z'
 author: Matti Petrelius
 ---
 
-This post is the second part of a two part series about **Utility Types** in **TypeScript**. The first part can be found [here](../utility-types-part1).
+This post is the second part of a two-part series about **Utility Types** in **TypeScript**. The first part can be found [here](../utility-types-part1).
 
 Utility Types have been a mystery for me a long time until recently so I thought that might be the case for others as well and maybe I should write about them. The main reason why I think utility types are so awesome is that often when dealing with **JavaScript** code and libraries there's a need for complex typing.
 
@@ -16,7 +16,7 @@ Utility Types have been a mystery for me a long time until recently so I thought
 
 The [first part](../utility-types-part1) was about these six utility types: `Partial<T>`, `Required<T>`, `Readonly<T>`, `Record<K,T>`, `Pick<T,K>` and `Omit<T,K>`.
 
-In addition to the types we also learned some features of TypeScript that make implementing types like these possible in the first place.
+In addition to the types, we also learned some features of TypeScript that make implementing types like these possible in the first place.
 
 **In this part** we are going to cover the eight remaining utility types:
 
@@ -33,11 +33,11 @@ In addition to the types we also learned some features of TypeScript that make i
 
 Before we get going we should learn a couple more features in TypeScript that will help us understand the following utility types and their implementation.
 
-> 💡 This part 2 of utility types assumes that you have already read the part 1 and its **type shenanigans**. If you haven't done it yet, please go read [part 1](../utility-types-part1) because otherwise some of the utility type implementations here will be really hard to understand.
+> 💡 This part 2 of utility types assumes that you have already read the part 1 and its **type shenanigans**. If you haven't done it yet, please go read [part 1](../utility-types-part1) because otherwise some of the utility type implementations here will be hard to understand.
 
 ### never
 
-`never` is a very special type representing **values that never occur**. It is a bit of an abstract concept but best explained with examples. For example a function has a return type of `never` if it never reaches its endpoint:
+`never` is a very special type representing **values that never occur**. It is a bit of an abstract concept but best explained with examples. For example, a function has a return type of `never` if it never reaches its endpoint:
 
 ```typescript
 function foo(): never {
@@ -58,7 +58,7 @@ Type `never` might seem impractical at first but it is used for example when inf
 
 ### ...
 
-Not really even an TypeScript feature but ECMAScript, the **rest operator** can be used to store all the arguments after the `...` operator into a single paramter. For example:
+Not even a TypeScript feature but ECMAScript, the **rest operator** can be used to store all the arguments after the `...` operator into a single parameter. For example:
 
 ```typescript
 function foo(...args: any[]) {
@@ -116,11 +116,11 @@ type T2 = Unpacked<string> // string
 
 `infer` is heavily used in some of the utility types in this blog post.
 
-> 💡 Don't mix up **rest operator** with the **spread operator**. They look exactly the same but have a completely different meaning. The only way to tell them apart is by knowing the context they are used in. To learn more about the spread operator go here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+> 💡 Don't mix up **rest operator** with the **spread operator**. They look the same but have a completely different meaning. The only way to tell them apart is by knowing the context they are used in. To learn more about the spread operator go here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 
 ### Lookup types
 
-Also called **indexed access types**. This is feature in TypeScript that allows you to query the types of certain propeties from a type. For example:
+Also called **indexed access types**. This is a feature in TypeScript that allows you to query the types of certain properties from a type. For example:
 
 ```typescript
 interface Foo {
@@ -144,7 +144,7 @@ This utility type is like `Omit<T, K>` from [Part 1](../utility-types-part1) but
 type Exclude<T, U> = T extends U ? never : T
 ```
 
-Remember conditional types? Here we are introduced to one. Also we are using the `never` type. The implementation reads that if `T` is assignable to `U` return type `never` otherwise `T`. And since the conditional type is also an distributive conditional type, it is applied over union types, resulting in `never` when the type is not assignable to `U`. The `never` is not a possible type so it is simply removed from the union type.
+Remember conditional types? Here we are introduced to one. Also, we are using the `never` type. The implementation reads that if `T` is assignable to `U` return type `never` otherwise `T`. And since the conditional type is also a distributive conditional type, it is applied over union types, resulting in `never` when the type is not assignable to `U`. The `never` is not a possible type so it is simply removed from the union type.
 
 Here's an example of how to use `Exclude<T, U>`:
 
@@ -156,7 +156,7 @@ type T2 = Exclude<string | number | (() => void), Function> // string | number
 
 ## Extract&lt;T,U>
 
-This is the opposite of `Exclude<T,U>` and therefore also operates on union types. It creates a type with types from `T` that are assignable to `U`. Here's the implementation:
+This is the opposite of `Exclude<T,U>` and therefore also operates on union types. It creates a type with types from `T` which are assignable to `U`. Here's the implementation:
 
 ```typescript
 type Extract<T, U> = T extends U ? T : never
@@ -171,7 +171,7 @@ type T1 = Extract<string | number | (() => void), Function> // () => void
 
 ## NonNullable&lt;T>
 
-This type also operates on union types. It removes `null` and `undefined` types from the given type and return the resulting type.
+This type also operates on union types. It removes `null` and `undefined` types from the given type and returns the resulting type.
 
 Here is the implementation of the type:
 
@@ -202,7 +202,7 @@ Here is the implementation for the type:
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any
 ```
 
-One situation where you might want to use this is when you have a function that returns an object created with an object literal and is therefore inferred by TypeScript. You could define the type mimicing the object literal but an easier way is to use `ReturnType<T>`:
+One situation where you might want to use this is when you have a function that returns an object created with an object literal and is therefore inferred by TypeScript. You could define the type mimicking the object literal but an easier way is to use `ReturnType<T>`:
 
 ```typescript
 function results(num1, num2) {
@@ -228,7 +228,7 @@ type InstanceType<T extends new (...args: any) => any> = T extends new (
   : any
 ```
 
-What it does is takes a constructor function type and returns its return type. A naive example would be the following:
+What it does is takes a constructor function type and return its return type. A naive example would be the following:
 
 ```typescript
 class A {
@@ -239,7 +239,7 @@ class A {
 type T = InstanceType<typeof A> // A
 ```
 
-But this does not really make sense since the resulting type is just `A` so this could have been much easier expressed with just `type T = A`.
+But this does not make sense since the resulting type is just `A` so this could have been much easier expressed with just `type T = A`.
 
 But what if we want to declare a generic factory function. Like this:
 
@@ -257,13 +257,13 @@ Since `create<T>` is a generic function the return type is not explicitly known.
 
 ## ThisType&lt;T>
 
-This is one of the most esoteric one of the utility types. This type is an exception to the rule in that it does not return a transformed type like all the other ones. It is used to mark the contextual `this` type. As such, it's just a marker interface:
+This is one of the most esoteric of the utility types. This type is an exception to the rule in that it does not return a transformed type like all the other ones. It is used to mark the contextual `this` type. As such, it's just a marker interface:
 
 ```typescript
 interface ThisType<T> {}
 ```
 
-Take a look at this example (it's directly from the TypeScript documentation. I just couldn't come up with my own example. Not really sure there are any other examples.):
+Take a look at this example (it's directly from the TypeScript documentation. I just couldn't come up with an original example. Not sure there are other examples.):
 
 > 💡 By the way, this utility type cannot be used unless you also enable the `noImplicitThis` compiler option.
 
@@ -306,9 +306,9 @@ type Parameters<T extends (...args: any) => any> = T extends (
   : never
 ```
 
-As you can see here, if the type is a function, the parameter types are inferred and returned, otherwise any is returned.
+As you can see here if the type is a function, the parameter types are inferred and returned. Otherwise, any is returned.
 
-`Parameters<T>` is useful for example when you want to create a function that wraps another function. You don't have to know the parameters the function that is wrapped to have it typed if you use `Parameters<T>`. You can even combine it with `ReturnType<T>` to return the return value of wrapped function:
+`Parameters<T>` is useful for example when you want to create a function that wraps another function. You don't have to know the parameters the function that is wrapped to have it typed if you use `Parameters<T>`. You can even combine it with `ReturnType<T>` to return the return value of the wrapped function:
 
 ```typescript
 const add = (a: number, b: number) => a + b
@@ -323,7 +323,7 @@ const result = logAndAdd(1, 2)
 
 ## ConstructorParameters&lt;T>
 
-Just like the name implies this is exactly the same as `Parameters<T>` but for constructors instead of regular functions. Here's the implementation:
+Just like the name implies this is the same as `Parameters<T>` but for constructors instead of regular functions. Here's the implementation:
 
 ```typescript
 type ConstructorParameters<
@@ -355,7 +355,7 @@ Notice that `InstanceType<T>` is used here in the same way `ReturnType<T>` was u
 
 ## Let's go a bit type crazy
 
-Utility types are super powerful and a testament to the awesomeness of the type system in TypeScript. For more proof I would like to introduce one very complex but useful type that I found on Stack Overflow (https://stackoverflow.com/a/49725198)
+Utility types are super powerful and a testament to the awesomeness of the type system in TypeScript. For more proof, I would like to introduce one very complex but useful type that I found on Stack Overflow (https://stackoverflow.com/a/49725198)
 
 ### RequireAtLeastOne&lt;T, Keys>
 
@@ -371,7 +371,7 @@ type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
   }[Keys]
 ```
 
-Here's an example how to use it:
+Here's an example of how to use it:
 
 ```typescript
 interface Person {
@@ -439,7 +439,7 @@ and
 Partial<Record<Exclude<Keys, K>, undefined>>
 ```
 
-The first type creates an type with the `K` property from the original type and then `Required<T>` to transform that property to required.
+The first type creates a type with the `K` property from the original type and then `Required<T>` to transform that property to required.
 
 The second type looks more complex but it just makes all the other properties optional. It first uses `Exclude<T>` to get all the given properties from `Keys` except `K`. And with `Record<K, T>` creates a new type having those properties all with type `undefined`. And then it changes all the properties to optional with `Partial<T>`.
 
@@ -457,12 +457,12 @@ type PersonWithContact =
       Partial<Pick<Person, 'phoneNumber'>>)
 ```
 
-Getting to this point requires some simplifying by the TypeScript type system but in the end the type is not super complicated. It does have some repetition and that is the reason type errors are not as perfect as they maybe could be if TypeScript supported this kind of type natively. However I think this is a good example of how the powerful type system can be utilized to create even more useful types.
+Getting to this point requires some simplifying by the TypeScript type system but in the end, the type is not super complicated. It does have some repetition and that is the reason type errors are not as perfect as they maybe could be if TypeScript supported this kind of type natively. However, I think this is a good example of how the powerful type system can be utilized to create even more useful types.
 
 ## Conclusion
 
-Both [Part 1](../utility-types-part1) and this second part took me a long time to write. This has been one of the most challenging thing I've ever written. I'm still not completely sure if I managed to do a good job or not.
+Both [Part 1](../utility-types-part1) and this second part took me a long time to write. This has been one of the most challenging things I've ever written. I'm still not completely sure if I managed to do a good job or not.
 
-I hope it was worth it. At least I personally learned a lot in the process. There's so much I could write about TypeScript. The more I learn about it the more I feel like I get sucked in.
+I hope it was worth it. At least I learned a lot in the process. There's so much I could write about TypeScript. The more I learn about it the more I feel like I get sucked in.
 
-And the language keeps constantly evolving. Today version [3.7](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html) was released and it contains some long awaited and cool new features. Maybe I'll write about them next 🙂
+And the language keeps constantly evolving. Today version [3.7](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html) was released and it contains some long-awaited and cool new features. Maybe I'll write about them next 🙂
