@@ -2,6 +2,7 @@
 title: Bonus Round - Utility Types - Part 2
 date: '2019-11-07T12:00:00.000Z'
 author: Matti Petrelius
+hashtags: TypeScript, UtilityTypes
 ---
 
 This post is the second part of a two-part series about **Utility Types** in **TypeScript**. The first part can be found [here](../utility-types-part1).

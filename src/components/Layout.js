@@ -141,6 +141,7 @@ class Layout extends React.Component {
                   content={`${data.site.siteMetadata.siteUrl}${slug ||
                     ''}twitter-card.jpg`}
                 />
+                <link rel="me" href="https://twitter.com/mattipet" />
               </Helmet>
               <div
                 style={{

@@ -4,28 +4,44 @@ import { Link, graphql } from 'gatsby'
 
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
+import TweetButton from '../components/TweetButton'
 import { rhythm, scale } from '../utils/typography'
+import styled from 'styled-components'
+
+const ShareButtonContainer = styled.div`
+  margin-bottom: ${rhythm(1.5)};
+`
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
-    const siteTitle = this.props.data.site.siteMetadata.title
-    const siteDescription = post.excerpt
+    const {
+      fields,
+      excerpt,
+      frontmatter: { title, date, hashtags },
+      html,
+    } = this.props.data.markdownRemark
+    const {
+      siteTitle,
+      siteUrl,
+      twitterHandle,
+    } = this.props.data.site.siteMetadata
     const { previous, next } = this.props.pageContext
+    const { slug } = fields
+    const url = `${siteUrl}${slug.substring(0, slug.length - 1)}`
 
     return (
       <Layout
         location={this.props.location}
         title={siteTitle}
-        slug={post.fields.slug}
-        excerpt={post.excerpt}
+        slug={slug}
+        excerpt={excerpt}
       >
         <Helmet
           htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={`${post.frontmatter.title} | ${siteTitle}`}
+          meta={[{ name: 'description', content: excerpt }]}
+          title={`${title} | ${siteTitle}`}
         />
-        <h1>{post.frontmatter.title}</h1>
+        <h1>{title}</h1>
         <p
           style={{
             ...scale(-1 / 3),
@@ -35,14 +51,19 @@ class BlogPostTemplate extends React.Component {
             opacity: 0.6,
           }}
         >
-          {post.frontmatter.date}
+          {date}
         </p>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
+        <div dangerouslySetInnerHTML={{ __html: html }} />
+
+        <ShareButtonContainer>
+          <TweetButton
+            url={url}
+            text={title}
+            via={twitterHandle}
+            hashtags={hashtags}
+          />
+        </ShareButtonContainer>
+
         <Bio />
 
         <ul
@@ -81,7 +102,8 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
-        author
+        siteUrl
+        twitterHandle
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
@@ -94,7 +116,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        author
+        hashtags
       }
     }
   }
