@@ -42,8 +42,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const BlogPostTitleImage = styled.img`
-  margin-bottom: ${rhythm(1.5)};
-  margin-top: 0;
+  margin: 0;
   width: 300px;
 
   @media (max-width: 600px) {
@@ -97,7 +96,7 @@ class Layout extends React.Component {
                 style={{
                   fontFamily: 'Montserrat, sans-serif',
                   marginTop: 0,
-                  marginBottom: rhythm(1),
+                  marginBottom: rhythm(1.5),
                 }}
               >
                 <Link

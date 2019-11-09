@@ -31,7 +31,7 @@ class BlogPostTemplate extends React.Component {
             ...scale(-1 / 3),
             display: 'block',
             marginBottom: rhythm(1),
-            marginTop: rhythm(-1),
+            marginTop: rhythm(-0.5),
             opacity: 0.6,
           }}
         >
