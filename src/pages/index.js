@@ -33,8 +33,19 @@ class BlogIndex extends React.Component {
               >
                 <PostLink slug={node.fields.slug} title={title} />
               </h3>
-              <small style={{ opacity: 0.6 }}>{node.frontmatter.date}</small>
-              <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
+              <small
+                style={{
+                  display: 'block',
+                  opacity: 0.6,
+                  marginBottom: rhythm(1 / 4),
+                }}
+              >
+                {node.frontmatter.date}
+              </small>
+              <p
+                style={{ marginBottom: rhythm(1.5) }}
+                dangerouslySetInnerHTML={{ __html: node.excerpt }}
+              />
             </div>
           )
         })}

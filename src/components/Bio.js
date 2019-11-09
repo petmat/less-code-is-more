@@ -11,6 +11,15 @@ import styled from 'styled-components'
 import { titleColor } from '../utils/commonStyles'
 import { GithubLink, TwitterLink, RssLink } from './SomeLink'
 
+const BioContainer = styled.div`
+  display: flex;
+  margin-bottom: ${rhythm(2)};
+
+  @media (max-width: 600px) {
+    margin-bottom: ${rhythm(1.5)};
+  }
+`
+
 const NameText = styled.span`
   font-family: 'Kaushan Script';
   color: ${titleColor};
@@ -19,12 +28,7 @@ const NameText = styled.span`
 class Bio extends React.Component {
   render() {
     return (
-      <div
-        style={{
-          display: 'flex',
-          marginBottom: rhythm(1),
-        }}
-      >
+      <BioContainer>
         <img
           src={profilePic}
           alt={`Matti Petrelius`}
@@ -35,14 +39,22 @@ class Bio extends React.Component {
             height: rhythm(2),
           }}
         />
-        <p>
-          Written by <NameText>Matti Petrelius</NameText> who is a fan of
-          serverless and other cool things.
-          <TwitterLink href="https://twitter.com/mattipet" />{' '}
-          <GithubLink href="https://github.com/petmat" />{' '}
-          <RssLink href="https://lesscodeismore.dev/rss.xml" />
+        <p
+          style={{
+            margin: 0,
+          }}
+        >
+          <span style={{ marginRight: rhythm(0.25) }}>
+            Written by <NameText>Matti Petrelius</NameText> who is a fan of
+            serverless and other cool things.
+          </span>
+          <span style={{ whiteSpace: 'nowrap' }}>
+            <TwitterLink href="https://twitter.com/mattipet" />{' '}
+            <GithubLink href="https://github.com/petmat" />{' '}
+            <RssLink href="https://lesscodeismore.dev/rss.xml" />
+          </span>
         </p>
-      </div>
+      </BioContainer>
     )
   }
 }

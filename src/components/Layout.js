@@ -41,6 +41,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+const LandingPageHeader = styled.h1`
+  margin: ${rhythm(0.5)} 0 ${rhythm(2)};
+  font-size: 1.31951rem;
+
+  @media (max-width: 600px) {
+    margin: 0 0 ${rhythm(1.5)} 0;
+  }
+`
+
 const BlogPostTitleImage = styled.img`
   margin: 0;
   width: 300px;
@@ -52,7 +61,7 @@ const BlogPostTitleImage = styled.img`
 
 class Layout extends React.Component {
   render() {
-    const { location, title, slug, excerpt, children } = this.props
+    const { location, slug, excerpt, children } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
 
     return (
@@ -72,29 +81,28 @@ class Layout extends React.Component {
 
           if (location.pathname === rootPath) {
             header = (
-              <Link
-                style={{
-                  backgroundImage: 'none',
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  textShadow: 'none',
-                }}
-                to={'/'}
-              >
-                <img
-                  src={logoPic}
+              <LandingPageHeader>
+                <Link
                   style={{
-                    marginBottom: rhythm(2),
-                    marginTop: rhythm(0.5),
+                    backgroundImage: 'none',
+                    textDecoration: 'none',
+                    color: 'inherit',
                   }}
-                />
-              </Link>
+                  to={'/'}
+                >
+                  <img
+                    src={logoPic}
+                    style={{
+                      margin: 0,
+                    }}
+                  />
+                </Link>
+              </LandingPageHeader>
             )
           } else {
             header = (
               <h3
                 style={{
-                  fontFamily: 'Montserrat, sans-serif',
                   marginTop: 0,
                   marginBottom: rhythm(1.5),
                 }}
