@@ -21,7 +21,7 @@ class BlogPostTemplate extends React.Component {
       html,
     } = this.props.data.markdownRemark
     const {
-      siteTitle,
+      title: siteTitle,
       siteUrl,
       twitterHandle,
     } = this.props.data.site.siteMetadata
