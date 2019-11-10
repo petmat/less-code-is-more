@@ -27,7 +27,7 @@ class BlogPostTemplate extends React.Component {
     } = this.props.data.site.siteMetadata
     const { previous, next } = this.props.pageContext
     const { slug } = fields
-    const url = `${siteUrl}${slug.substring(0, slug.length - 1)}`
+    const url = `${siteUrl}${slug}`
 
     return (
       <Layout
@@ -40,7 +40,9 @@ class BlogPostTemplate extends React.Component {
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: excerpt }]}
           title={`${title} | ${siteTitle}`}
-        />
+        >
+          <link rel="canonical" href={url} />
+        </Helmet>
         <h1>{title}</h1>
         <p
           style={{
