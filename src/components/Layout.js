@@ -1,7 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { Link, StaticQuery, graphql } from 'gatsby'
-import { rhythm } from '../utils/typography'
+import { rhythm, scale } from '../utils/typography'
 import styled, { createGlobalStyle } from 'styled-components'
 import logoPic from './less-code-is-more.svg'
 import { linkColor } from '../utils/commonStyles'
@@ -14,6 +14,19 @@ const GlobalStyle = createGlobalStyle`
   }
   h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
+  }
+  h2 {
+    margin-top: ${rhythm(1.4)}
+    margin-bottom: ${rhythm(0.8)}
+  }
+  h3 {
+    margin-top: ${rhythm(1.2)}
+    margin-bottom: ${rhythm(0.6)}
+  }
+  h4 {
+    margin-top: ${rhythm(1.0)}
+    margin-bottom: ${rhythm(0.4)}
+    ${scale(1 / 5)}
   }
   a {
     color: ${linkColor};
@@ -43,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
 
 const LandingPageHeader = styled.h1`
   margin: ${rhythm(0.5)} 0 ${rhythm(2)};
-  font-size: 1.31951rem;
+  ${scale(2 / 5)};
 
   @media (max-width: 600px) {
     margin: 0 0 ${rhythm(1.5)} 0;

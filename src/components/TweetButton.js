@@ -17,7 +17,6 @@ const TweetButtonLink = styled.a`
 
 const TwitterIcon = styled(FaTwitter)`
   vertical-align: middle;
-  height: 20px;
 `
 
 const objToQueryString = obj =>
