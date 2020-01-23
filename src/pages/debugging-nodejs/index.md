@@ -1,6 +1,6 @@
 ---
 title: Debugging Node.js
-date: '2019-11-21T12:00:00.000Z'
+date: '2020-01-22T12:00:00.000Z'
 author: Matti Petrelius
 hashtags: nodejs
 ---
@@ -16,7 +16,7 @@ work.
 <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@hirmin?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Max Kleinen"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Max
 Kleinen</span></a>
 
-The process of trying to discover why code is not working is called debugging.
+The process of investigating why code does not work is called debugging.
 The etymology of the name debugging dates back to when computers were very
 different with circuit boards and relays. The first **bug** was a moth blocking
 a relay. So debugging was the actual process of removing the insect from the
@@ -50,124 +50,6 @@ state of the application in more detail. You might also want to debug the
 performance and resource utilization of your app instead of going through the
 code. These are all possible to do in Node.js and there are some very powerful
 tools at your disposal.
-
-## What's my value?
-
-Without a doubt, the debugging tool that all the JavaScript and Node.js
-developers are most familiar with is the **console.log** function. Console.log
-is great because it allows you to print out anything you want at a specific
-point of executing your app. It even handles printing objects
-and arrays in a reasonable way most of the time.
-
-Experienced debuggers might belittle console.log since it is such a simple tool compared to _"real debugging tools"_. But console.log and it's friends are actually really nifty and useful tools for all developers. Here are some examples you might or might not know of:
-
-### Show me a table
-
-Some data in an app is in the form of a **table**. A good example of this is a **database query**. You can always just print the value with with console.log:
-
-```javascript
-console.log(animals)
-```
-
-```
-[
-  { animal: 'Horse', name: 'Henry', age: 43 },
-  { animal: 'Dog', name: 'Fred', age: 13 },
-  { animal: 'Cat', name: 'Frodo', age: 18 },
-]
-```
-
-But with `console.table` you can make it even more easy to read:
-
-```javascript
-console.table(animals)
-```
-
-```
-┌─────────┬─────────┬─────────┬─────┐
-│ (index) │ animal  │  name   │ age │
-├─────────┼─────────┼─────────┼─────┤
-│    0    │ 'Horse' │ 'Henry' │ 43  │
-│    1    │  'Dog'  │ 'Fred'  │ 13  │
-│    2    │  'Cat'  │ 'Frodo' │ 18  │
-└─────────┴─────────┴─────────┴─────┘
-```
-
-### Deeply nested objects
-
-If you do a lot of console.logging with **Node.js** you are bound to run in to occasional `[Object]` in your printout. This is because Node.js has a limit to how deeply nested properties of an object it will output. For example the following:
-
-```javascript
-var deep = {
-  foo: {
-    bar: {
-      baz: {
-        baaz: 'jee',
-      },
-    },
-  },
-}
-
-console.log(deep)
-```
-
-Will output:
-
-```
-{ foo: { bar: { baz: [Object] } } }
-```
-
-So what can you do to output the whole object? The most obvious way is to serialize the object as JSON:
-
-```javascript
-console.log(JSON.stringify(deep))
-```
-
-```
-{"foo":{"bar":{"baz":{"baaz":"jee"}}}}
-```
-
-But there is another solution to use `console.dir`:
-
-```javascript
-console.dir(deep, { depth: null })
-```
-
-```
-{
-  foo: { bar: { baz: { baaz: 'jee' } } }
-}
-```
-
-### Let's count all the things
-
-Sometimes you want to get the count of how many times a certain thing occurs in code. It can be an operation that is called inside a loop or a recursive function. One way would be to create and mutate a temporary variable. But you don't actually need to even do that if you use `console.count`. Here's an example how to use it to count how many levels deep a recursive function goes (using the `deep` object from previous example):
-
-```javascript
-function recursive(obj) {
-  console.count('LEVEL')
-  for (const key in obj) {
-    if (typeof obj === 'object') {
-      console.log(key)
-      recursive(obj[key])
-    }
-  }
-}
-
-recursive(deep)
-```
-
-```
-LEVEL: 1
-foo
-LEVEL: 2
-bar
-LEVEL: 3
-baz
-LEVEL: 4
-baaz
-LEVEL: 5
-```
 
 ## You call this debugging? 😤
 
@@ -263,88 +145,3 @@ You can add a new launch configuration by going to the debug view and opening th
 This configuration differs from the one before by `request` being `attach` instead of `launch`. Also instead of `program` it has a property `port` which is the number of the port the process listens to for debugging clients. Just like the default port for Node.js inspect option, the default here is also `9229`.
 
 You can now select the `Attach` configuration from the dropdown and start the debugger. It will attach to the Node.js process as long as it is already started and running.
-
-## API for an API for an API
-
-Applications these days rarely consist of a single piece of executable code. It's much more likely that an app has many APIs which communicate either with each other or a client app.
-
-If you are developing an API you will most likely want to also test it at some point. Luckily these days testing an API is simple and there are many options for how to do it.
-
-### Good old cURL
-
-The simplest way to test an API is to use **cURL**. Let's say you have an api at https://lesscodeismore.dev. All you need to do to call it is:
-
-```bash
-curl https://lesscodeismore.dev
-```
-
-This will do a **GET** method API call. If you want to use a different method, e.g. **POST**, you can do:
-
-```bash
-curl -X POST https://lesscodeismore.dev/
-```
-
-Or to send **JSON** data with POST:
-
-```bash
-curl -d '{ "id": 123, "name": "Matti" }' -H "Content-Type: application/json" -X POST https://lesscodeismore.dev
-```
-
-cURL is a good old tool that just works. You can also use it with APIs that require authentication. The nice thing about it is that it is just an terminal command and all the calls can be scripted easily. But if you do a lot of API calls you might start to want something a little bit more powerful and easier to use.
-
-### Visual Studio Code REST Client
-
-This is one of my favorite Visual Studio Code extensions. You can get it from here https://marketplace.visualstudio.com/items?itemName=humao.rest-client
-
-**REST Client** has a bunch of features but I mainly use it for simply calling REST APIs. You start by creating an HTTP file. You can either save the file with `.http` or `.rest` extension or use the keyboard shortcut `CMD + K, M` to select the language mode as `HTTP`. Then input the following and and **Send Request** link should appear above it.
-
-```http
-https://lesscodeismore.dev
-```
-
-Sending JSON data with POST is done following the HTTP standard (RFC 2616):
-
-```http
-POST https://lesscodeismore.dev
-content-type: application/json
-
-{
-  "id": 123,
-  "name": "Matti"
-}
-```
-
-You can have multiple HTTP calls in one file but you must separate them with comments starting with `###`.
-
-```http
-### GET
-GET https://lesscodeismore.dev
-
-### POST
-POST https://lesscodeismore.dev
-```
-
-REST Client is nice because the API calls can be just a file in the version control with other code. If you're already using Visual Studio Code for writing code then it's convenient to be able to use the same tool for API calls as well.
-
-### Go G-U-I! GUI!
-
-I personally prefer using terminal and code editor over **GUI tools** but there are a couple of good GUI REST client tools that I've come across worth mentioning.
-
-#### The Postman cometh!
-
-Probably the most famous and popular GUI tool for testing APIs is [Postman](https://www.getpostman.com/). Originally a Chrome Browser app, it has grown into a powerful tool with a ton of features. Some might say it's grown even a bit **too** much. However this was a tool I used a lot before I fell in love with the Visual Studio Code REST Client.
-
-#### Insomnia
-
-The name of the app reminds me of a 90s techno song, but apparently it's also a quite nice REST client. The download page reveals the pun in the name: "[Download Insomnia](https://insomnia.rest/)
-_So you can finally GET some REST_ 😴"
-
-Compared to Postman Insomnia keeps it simple. It doesn't feel like it has every feature crammed into it. So it appeals to devs who like more minimalistic apps. I might give it a try if I find myself fancying a more graphical interface for my API calling needs.
-
-### REST? I use GraphQL! 😠
-
-I've only talked about REST clients so far, but **GraphQL** is also becoming more and more popular for APIs. Luckily all of the clients I've mentioned also support GraphQL. I haven't done much comparison but at least Insomnia seems to have a nice interface for exploring GraphQL queries.
-
-## What about performance?
-
-Debugging is not just for finding bugs. You can also debug the performance of your app to find bottlenecks and optimize it. The most simple way is to measure 
