@@ -12,15 +12,20 @@ out how to write code you spend most of your time thinking about why it does not
 work.
 
 ![Debugging](./title.jpg)
-
 <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@hirmin?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Max Kleinen"><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">Max
 Kleinen</span></a>
 
-The process of investigating why code does not work is called debugging.
-The etymology of the name debugging dates back to when computers were very
-different with circuit boards and relays. The first **bug** was a moth blocking
+This post is part 1 of a 3 part blog post series that goes through the various techniques used in Node.js to debug applications. In this part we will focus on basic debugging and the upcoming parts will be about memory leaks and performance debugging.
+
+Part 1: Debugging Node.js  
+Part 2: ...  
+Part 3: ...
+
+The process of investigating why code does not work as expected is called debugging.
+The origin of the word dates back to when computers were very
+different than the current modern ones. They had relays and the first **bug** was an actual moth blocking
 a relay. So debugging was the actual process of removing the insect from the
-circuit board.
+computer.
 
 Because debugging is such an integral part of an developers job, it is important
 to familiarize yourself with the tools that you can use to debug your software.
@@ -37,12 +42,9 @@ environments) that support debugging out of the box.
 
 **JavaScript** and **Node.js** are different since they don't even usually have
 a specific IDE to develop with. Frontend developers utilize browser development
-tools to debug and inspect code, but when writing Node.js there is not a single
-correct way to debug your code. There are actually many ways debugging can be
-done and choosing the right one depends on what you use case is.
+tools to debug and inspect code, but when writing **Node.js** there's not a de facto way to debug your code. There are many ways to do debugging and choosing the right one depends on your use case and what requirements you have.
 
-This is an important point to understand: **There is not a single best practice
-to debugging. It depends on what you want to accomplish.**
+> 💡 This is an important point: **There is no single best practice when it comes to debugging.**
 
 Depending on the complexity of the issue you are debugging you might need to
 either just print out a value from the application or to stop to inspect the
@@ -51,11 +53,13 @@ performance and resource utilization of your app instead of going through the
 code. These are all possible to do in Node.js and there are some very powerful
 tools at your disposal.
 
-## You call this debugging? 😤
+## Beyond `console.log`
 
 Simply console logging a bunch of values and hoping to find out why your app is not doing what it's supposed to can be a slow and tedious job. There are times when `console.log` is the right tool for the job, but every now and then you run into an issue that makes you hoping there was a even better way to see what's going on inside your app.
 
-Luckily such a thing exist and it is using an actual **debugging client**. Debugging clients typically have features like stepping through code, adding breakpoints, viewing current values and adding watches. With JavaScript you can use debugging clients like Visual Studio Code and Chrome Developer Tools.
+I wont go into details about how to use `console.log` effectively since quite frankly I don't think it is very interesting. Every JavaScript coder knows how to do it and even though there are some neat tricks you can do, it's pretty straight forward stuff.
+
+Instead I'm going to focus on using an actual **debugging client**. Debugging clients typically have features like stepping through code, adding breakpoints, viewing current values and adding watches. With JavaScript you can use debugging clients like **Visual Studio Code** and **Chrome Developer Tools**.
 
 ### Gentlemen, start your debuggers!
 
@@ -145,3 +149,12 @@ You can add a new launch configuration by going to the debug view and opening th
 This configuration differs from the one before by `request` being `attach` instead of `launch`. Also instead of `program` it has a property `port` which is the number of the port the process listens to for debugging clients. Just like the default port for Node.js inspect option, the default here is also `9229`.
 
 You can now select the `Attach` configuration from the dropdown and start the debugger. It will attach to the Node.js process as long as it is already started and running.
+
+## More Node.js debugging goodness
+
+You've just finished the first part of a three part series in Node.js debugging!
+Look out for more content coming in the following weeks!
+
+Part 1: Debugging Node.js  
+Part 2: ...  
+Part 3: ...
