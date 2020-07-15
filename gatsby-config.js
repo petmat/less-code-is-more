@@ -6,6 +6,7 @@ module.exports = {
       'A blog about serverless, functional programming, web development, machine learning and all the fun stuff.',
     siteUrl: 'https://lesscodeismore.dev',
     twitterHandle: 'mattipet',
+    visitCount: 999,
   },
   plugins: [
     {

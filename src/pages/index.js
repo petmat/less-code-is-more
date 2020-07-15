@@ -6,12 +6,16 @@ import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import { rhythm } from '../utils/typography'
 import PostLink from '../components/PostLink'
+import VisitCounter from '../components/VisitCounter'
 
 class BlogIndex extends React.Component {
   render() {
     const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const { description, siteUrl } = data.site.siteMetadata
+    const {
+      site: { siteMetadata },
+    } = data
+    console.log('SITE METADTAA', siteMetadata)
+    const { description, siteUrl, visitCount, title: siteTitle } = siteMetadata
     const posts = data.allMarkdownRemark.edges
 
     return (
@@ -51,6 +55,7 @@ class BlogIndex extends React.Component {
             </div>
           )
         })}
+        <VisitCounter visitCount={visitCount} />
       </Layout>
     )
   }
@@ -65,6 +70,7 @@ export const pageQuery = graphql`
         title
         description
         siteUrl
+        visitCount
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
