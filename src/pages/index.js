@@ -91,7 +91,6 @@ export const pageQuery = graphql`
         title
         description
         siteUrl
-        visitCount
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
