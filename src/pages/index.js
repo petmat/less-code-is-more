@@ -9,13 +9,34 @@ import PostLink from '../components/PostLink'
 import VisitCounter from '../components/VisitCounter'
 
 class BlogIndex extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      visitCount: 0,
+    }
+  }
+
+  componentDidMount() {
+    const getAndUpdateVisits = async () => {
+      const response = await fetch('/.netlify/functions/visits-get', {
+        method: 'POST',
+      })
+      const { data } = await response.json()
+      this.setState({ visitCount: data.length + 1 })
+      await fetch('/.netlify/functions/visits-create', {
+        method: 'POST',
+      })
+    }
+
+    getAndUpdateVisits()
+  }
+
   render() {
     const { data } = this.props
     const {
       site: { siteMetadata },
     } = data
-    console.log('SITE METADTAA', siteMetadata)
-    const { description, siteUrl, visitCount, title: siteTitle } = siteMetadata
+    const { description, siteUrl, title: siteTitle } = siteMetadata
     const posts = data.allMarkdownRemark.edges
 
     return (
@@ -55,7 +76,7 @@ class BlogIndex extends React.Component {
             </div>
           )
         })}
-        <VisitCounter visitCount={visitCount} />
+        <VisitCounter visitCount={this.state.visitCount} />
       </Layout>
     )
   }
