@@ -50,7 +50,11 @@ class BlogIndex extends React.Component {
         </Helmet>
         <Bio />
         {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
+          const title = (node.frontmatter.title || node.fields.slug).replace(
+            '{visitCount}',
+            this.state.visitCount
+          )
+
           return (
             <div key={node.fields.slug}>
               <h3

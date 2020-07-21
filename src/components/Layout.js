@@ -39,6 +39,9 @@ const GlobalStyle = createGlobalStyle`
   .gatsby-highlight {
     margin-bottom: 1.666rem;
   }
+  :not(pre) > code[class*="language-"] {
+    padding: .3em;
+  }
 `
 
 const LandingPageHeader = styled.h1`

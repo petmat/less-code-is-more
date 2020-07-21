@@ -13,13 +13,36 @@ const ShareButtonContainer = styled.div`
 `
 
 class BlogPostTemplate extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      visitCount: 0,
+    }
+  }
+
+  componentDidMount() {
+    const getAndUpdateVisits = async () => {
+      const response = await fetch('/.netlify/functions/visits-get', {
+        method: 'POST',
+      })
+      const { data } = await response.json()
+      this.setState({ visitCount: data.length + 1 })
+      await fetch('/.netlify/functions/visits-create', {
+        method: 'POST',
+      })
+    }
+
+    getAndUpdateVisits()
+  }
+
   render() {
     const {
       fields,
       excerpt,
-      frontmatter: { title, date, hashtags },
+      frontmatter: { title: blogTitle, date, hashtags },
       html,
     } = this.props.data.markdownRemark
+    const title = blogTitle.replace('{visitCount}', this.state.visitCount)
     const {
       title: siteTitle,
       siteUrl,
