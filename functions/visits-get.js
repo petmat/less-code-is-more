@@ -8,7 +8,7 @@ const serverClient = new faunadb.Client({
 const handler = async () => {
   try {
     const response = await serverClient.query(
-      q.Paginate(q.Match(q.Index('all_visits')))
+      q.Paginate(q.Match(q.Index('all_visits')), { size: 10000 })
     )
     console.log('success')
     return {
