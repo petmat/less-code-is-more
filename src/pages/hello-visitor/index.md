@@ -4,6 +4,9 @@ date: '2020-07-23T12:00:00.000Z'
 author: Matti Petrelius
 ---
 
+For some reason, 🙄 visit counters are not so popular anymore. There are undoubtedly younger web devs that have never seen one.
+That and for no other particular reason, I thought it would be cool to bring them back.
+
 ![Hola](./hola.jpg)
 
 <span>Photo by <a href="https://unsplash.com/@jontyson?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jon Tyson</a> on <a href="https://unsplash.com/s/photos/hola?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
@@ -33,10 +36,7 @@ Sorry about the pixelation but this screenshot is from a time with a lot less re
 In the times long before Google Analytics (before Google actually), the way to record the number of visits or hits on your HTML page
 was to use a **visit counter**. It was also instant bragging rights if you managed to get it to show a gigantic number like 10000 visits or something.
 
-For some reason, 🙄 visit counters are not so popular anymore. There are undoubtedly younger web devs that have never seen one.
-That and for no other particular reason, I thought it would be cool to bring them back.
-
-It also happens to be a very convenient excuse for me to do something I have not yet done for my blog. To have a backend API endpoint and persist data to a database.
+Visit counter is a very convenient excuse for me to do something I have not yet done for my blog. To have a backend API endpoint and persist data to a database.
 Back in the day, the first visit counters would just store the number of visitors to the server's memory. This is why it would only show the number of visitors since
 the last reset. Whenever the server would restart the counter would reset, much to the web master's disappointment. I wanted to make a more advanced visit counter
 that would actually persist the number of visitors, forever!
