@@ -401,3 +401,30 @@ or to render on-demand (client-side). It's just really nice to see we have a lot
 For example, I have been wondering if it would be a fun exercise to migrate my blog to Next or maybe something like [Redwood](https://redwoodjs.com/)
 
 Anyways, thanks to anyone who has read this far. Please if you have any thoughts about what I wrote, please comment on Twitter!
+
+## Edit: A bug in the counter
+
+After posting this, I noticed the counter didn't seemed to be working anymore. Of great! Who would have guessed it, I just wrote a blog post of a broken counter 💩.
+But like a good programmer after some sobbing, I turned to debugging it. My first fear was that something was broken with the write function since it seemed to be getting some number of visitors.
+Maybe it was just not writing new visits.
+
+But after checking the logs on Netlify, it looked like everything was fine. No errors visible. So what could it be?
+
+Turns out the problem was reading the visits after all, more exactly this FQL query:
+
+```js
+q.Paginate(q.Match(q.Index('all_visits')))
+```
+
+I should have guessed the `Paginate` function will get me into trouble, but I didn't expect it to happen so soon.
+I knew it only returns a single page of the results and not all of them, but it turns out it has a default page size of `64` 😡.
+That's why my counter was always stuck on `65` (one more than the page size, since we always add the current visit to the number in database)
+
+A quick-and-dirty fix was just to raise the page size
+
+```js
+q.Paginate(q.Match(q.Index('all_visits')), { size: 10000 })
+```
+
+That'll do for now, but a more sustainable solution will be to loop through the pages until there are none.
+And maybe keep the page size a bit lower, to keep the memory usage also lower.
